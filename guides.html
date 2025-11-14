@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Shopify Guides & Tutorials</title>
+    <meta name="description" content="Step-by-step guides to launch, grow, and scale your Shopify store. From beginner to advanced.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .nav {
+            background: #004C3F;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo { font-size: 1.3rem; font-weight: bold; }
+        .logo a { color: white; text-decoration: none; }
+
+        .header {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .guide-image {
+            height: 180px;
+            background: linear-gradient(135deg, #5C6AC4 0%, #00875A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .guide-content {
+            padding: 30px;
+        }
+
+        .guide-tag {
+            display: inline-block;
+            background: #5C6AC4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .guide-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #004C3F;
+        }
+
+        .read-more {
+            color: #5C6AC4;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .guides-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">🛍️ Shopify Success Hub</a></div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1>Shopify Guides & Tutorials</h1>
+        <p style="font-size: 1.2rem; opacity: 0.95;">Everything you need to build a successful online store</p>
+    </header>
+
+    <div class="container">
+        <div class="guides-grid">
+            <div class="guide-card">
+                <div class="guide-image">📖</div>
+                <div class="guide-content">
+                    <span class="guide-tag">Beginner Guide</span>
+                    <h3>How to Start a Shopify Store in 2025</h3>
+                    <p>Complete step-by-step guide from setup to your first sale. No experience required.</p>
+                    <a href="guide-how-to-start.html" class="read-more">Read Full Guide →</a>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-image">💰</div>
+                <div class="guide-content">
+                    <span class="guide-tag">Marketing</span>
+                    <h3>10 Ways to Get Your First 100 Sales</h3>
+                    <p>Proven traffic strategies that converted for 1000+ new stores. Real results, real tactics.</p>
+                    <a href="guide-first-sales.html" class="read-more">Read Full Guide →</a>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-image">🔧</div>
+                <div class="guide-content">
+                    <span class="guide-tag">Tools</span>
+                    <h3>15 Essential Shopify Apps</h3>
+                    <p>Must-have apps to boost sales and automate your store. Free and paid options.</p>
+                    <a href="guide-best-apps.html" class="read-more">Read Full Guide →</a>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-image">⚖️</div>
+                <div class="guide-content">
+                    <span class="guide-tag">Comparison</span>
+                    <h3>Shopify vs WooCommerce vs BigCommerce</h3>
+                    <p>Detailed comparison to help you choose the right platform for your store.</p>
+                    <a href="comparison.html" class="read-more">Read Comparison →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

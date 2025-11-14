@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: How Sarah Built a $50K/Month Jewelry Business with Shopify</title>
+    <meta name="description" content="Real success story: From $0 to $50,000/month in 6 months selling handmade jewelry on Shopify. See the exact strategies she used.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .nav {
+            background: #004C3F;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo { font-size: 1.3rem; font-weight: bold; }
+        .logo a { color: white; text-decoration: none; }
+
+        .case-study-header {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5b3 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .case-study-badge {
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .case-study-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.5rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stats-highlight {
+            max-width: 1000px;
+            margin: -50px auto 0;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-box {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .article-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: #004C3F;
+            margin: 50px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 30px 0 15px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 20px 0 20px 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .quote-box {
+            background: #f9f9f9;
+            border-left: 5px solid #d4af37;
+            padding: 30px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .quote-author {
+            font-style: normal;
+            font-weight: bold;
+            color: #d4af37;
+            margin-top: 15px;
+        }
+
+        .timeline {
+            margin: 40px 0;
+            padding-left: 30px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #d4af37;
+        }
+
+        .timeline-month {
+            font-weight: bold;
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .revenue-chart {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 40px 0;
+        }
+
+        .revenue-bars {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .revenue-bar {
+            text-align: center;
+        }
+
+        .bar {
+            background: linear-gradient(to top, #d4af37, #f4e5b3);
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+
+        .bar:hover {
+            background: linear-gradient(to top, #b8941f, #d4af37);
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .bar-value {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .strategy-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .strategy-box h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #5C6AC4 0%, #4959BD 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #5C6AC4;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .case-study-header h1 { font-size: 2rem; }
+            .stats-highlight { grid-template-columns: 1fr; }
+            .revenue-bars { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">🛍️ Shopify Success Hub</a></div>
+        </div>
+    </nav>
+
+    <header class="case-study-header">
+        <div class="case-study-badge">CASE STUDY</div>
+        <h1>$0 to $50K/Month in 6 Months</h1>
+        <p class="case-study-subtitle">How Sarah built a thriving jewelry business with Shopify - and the exact strategies you can copy</p>
+    </header>
+
+    <div class="stats-highlight">
+        <div class="stat-box">
+            <div class="stat-number">$0</div>
+            <div class="stat-label">Starting Capital</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">$50K</div>
+            <div class="stat-label">Monthly Revenue</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Months to Scale</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">4,200+</div>
+            <div class="stat-label">Orders Fulfilled</div>
+        </div>
+    </div>
+
+    <article class="article-container">
+        <div class="article-content">
+            <p><strong>Sarah Martinez was a corporate marketing manager who hated her job.</strong> She'd always loved making jewelry as a hobby, but never thought it could replace her six-figure salary. Fast forward 6 months, and she's doing exactly that - running a thriving Shopify store making $50,000+ per month.</p>
+
+            <p>Here's how she did it, and more importantly, how you can replicate her success.</p>
+
+            <h2>The Beginning: Side Hustle to Full-Time</h2>
+
+            <p>Sarah didn't quit her job immediately. That's mistake #1 most people make. Instead, she:</p>
+
+            <div class="quote-box">
+                "I spent every evening and weekend for 2 months building my store while keeping my day job. The income from my job funded my initial inventory, and having that safety net removed so much stress."
+                <div class="quote-author">- Sarah Martinez, Founder of Luna & Sol Jewelry</div>
+            </div>
+
+            <h3>Month 0: The Foundation (Pre-Launch)</h3>
+
+            <p>Before Sarah launched, she did her homework:</p>
+
+            <ul>
+                <li><strong>Market Research:</strong> Spent 3 weeks analyzing competitors, studying bestsellers on Etsy and Amazon</li>
+                <li><strong>Niche Down:</strong> Instead of "jewelry," she focused on "bohemian-style, sustainable jewelry for millennials"</li>
+                <li><strong>Supplier Search:</strong> Found 3 reliable suppliers on Alibaba, ordered samples from each</li>
+                <li><strong>Brand Identity:</strong> Created a cohesive brand story around sustainability and empowerment</li>
+                <li><strong>Shopify Setup:</strong> Chose the Dawn theme (free), customized colors and fonts</li>
+            </ul>
+
+            <div class="strategy-box">
+                <h3>🎯 Key Strategy #1: Niche Domination</h3>
+                <p>Sarah didn't try to compete with Tiffany's or Pandora. She carved out a specific niche:</p>
+                <ul>
+                    <li>Target: Women 25-40, eco-conscious, Boho aesthetic</li>
+                    <li>Price Point: $25-$85 (affordable luxury)</li>
+                    <li>Unique Angle: 10% of profits to ocean conservation</li>
+                </ul>
+                <p><strong>Lesson:</strong> Be a big fish in a small pond, not a small fish in an ocean.</p>
+            </div>
+
+            <h2>The 6-Month Journey: Month by Month</h2>
+
+            <div class="revenue-chart">
+                <h3 style="text-align: center; margin-bottom: 10px;">Revenue Growth Timeline</h3>
+                <div class="revenue-bars">
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 30px; background: #e8e8e8;"></div>
+                        <div class="bar-label">Month 1</div>
+                        <div class="bar-value">$1,200</div>
+                    </div>
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 80px;"></div>
+                        <div class="bar-label">Month 2</div>
+                        <div class="bar-value">$4,500</div>
+                    </div>
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 130px;"></div>
+                        <div class="bar-label">Month 3</div>
+                        <div class="bar-value">$12,800</div>
+                    </div>
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 180px;"></div>
+                        <div class="bar-label">Month 4</div>
+                        <div class="bar-value">$23,400</div>
+                    </div>
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 220px;"></div>
+                        <div class="bar-label">Month 5</div>
+                        <div class="bar-value">$38,900</div>
+                    </div>
+                    <div class="revenue-bar">
+                        <div class="bar" style="height: 250px;"></div>
+                        <div class="bar-label">Month 6</div>
+                        <div class="bar-value">$52,100</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 1: The Launch ($1,200)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>Launched with 15 products</li>
+                            <li>Posted daily on Instagram (grew to 800 followers)</li>
+                            <li>Spent $200 on Instagram ads (lost money, learned lessons)</li>
+                            <li>Friends & family made first orders</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "My ads didn't work at first because I was targeting too broad. I learned to target specific interests like 'Anthropologie' and 'Free People' instead of just 'jewelry.'"</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 2: Finding Product-Market Fit ($4,500)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>Identified 3 bestselling products (80% of sales)</li>
+                            <li>Doubled down on those products with more variants</li>
+                            <li>Started email marketing (collected 200 emails)</li>
+                            <li>Increased ad spend to $30/day</li>
+                            <li>Got first organic sale from Google</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "I almost gave up in month 2. Then I realized I needed to focus on what was working instead of trying to sell everything."</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 3: The Breakthrough ($12,800)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>One product went viral on TikTok (organic post, 200K views)</li>
+                            <li>Website crashed from traffic (upgraded Shopify plan)</li>
+                            <li>Hired VA to handle customer service</li>
+                            <li>Launched first email campaign (30% open rate, $1,800 in sales)</li>
+                            <li>Got featured by micro-influencer (20K followers, cost $150)</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "The TikTok video wasn't planned. I just showed how I package orders with sustainable materials. Authenticity beats perfection."</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 4: Scaling Up ($23,400)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>Increased ad budget to $100/day (ROI: 3.2x)</li>
+                            <li>Launched second collection (8 new products)</li>
+                            <li>Started Pinterest marketing (15K monthly views)</li>
+                            <li>Implemented abandoned cart emails (recovered $2,400)</li>
+                            <li>Email list grew to 2,500 subscribers</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "I quit my job at the end of month 4. Best decision ever."</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 5: Systems & Automation ($38,900)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>Automated email flows (welcome, post-purchase, re-engagement)</li>
+                            <li>Hired part-time photographer for better product shots</li>
+                            <li>Started wholesale program (3 boutiques signed up)</li>
+                            <li>Expanded to Amazon (additional $6K/month)</li>
+                            <li>Implemented SMS marketing (15% conversion rate)</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "Automation freed up my time to focus on product development and marketing strategy instead of repetitive tasks."</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 6: Six-Figure Pace ($52,100)</div>
+                    <div class="timeline-content">
+                        <p><strong>What Sarah Did:</strong></p>
+                        <ul>
+                            <li>Launched holiday collection (sold out in 2 weeks)</li>
+                            <li>Ran first major sale (Black Friday: $18K in one day)</li>
+                            <li>Hired full-time team member</li>
+                            <li>Secured partnership with major influencer (250K followers)</li>
+                            <li>Started planning Q1 2025 expansion</li>
+                        </ul>
+                        <p><strong>Key Insight:</strong> "I couldn't believe I was making more in a month than I made in a year at my corporate job. And I was happier."</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>The Strategies That Made It Work</h2>
+
+            <h3>1. Content Marketing (Organic Growth)</h3>
+            <ul>
+                <li><strong>Instagram:</strong> Posted 2x daily (reels + carousels), grew to 25K followers</li>
+                <li><strong>TikTok:</strong> Behind-the-scenes content, packaging videos, styling tips</li>
+                <li><strong>Pinterest:</strong> Created 50+ pins linking to products</li>
+                <li><strong>Blog:</strong> "How to Style Bohemian Jewelry" - ranks #3 on Google</li>
+            </ul>
+
+            <h3>2. Paid Advertising (Targeted Approach)</h3>
+            <ul>
+                <li><strong>Facebook/Instagram Ads:</strong> $100/day budget, focused on lookalike audiences</li>
+                <li><strong>Google Shopping:</strong> Product feed optimized, ROI: 4.5x</li>
+                <li><strong>Influencer Marketing:</strong> Worked with 15+ micro-influencers</li>
+                <li><strong>Cost Per Acquisition:</strong> $12 (Average Order Value: $47)</li>
+            </ul>
+
+            <h3>3. Email Marketing (Customer Retention)</h3>
+            <ul>
+                <li><strong>Welcome Series:</strong> 5-email sequence (generates 15% of revenue)</li>
+                <li><strong>Abandoned Cart:</strong> 3-email sequence (30% recovery rate)</li>
+                <li><strong>Post-Purchase:</strong> Review request + cross-sell</li>
+                <li><strong>Weekly Newsletter:</strong> New arrivals, styling tips, exclusive discounts</li>
+            </ul>
+
+            <div class="strategy-box">
+                <h3>💎 Sarah's Top 3 Success Factors</h3>
+                <ol>
+                    <li><strong>Product Photography:</strong> Invested $2,000 in professional photos - increased conversion rate from 1.2% to 3.8%</li>
+                    <li><strong>Customer Service:</strong> Responded to every message within 2 hours, encouraged reviews with 10% discount</li>
+                    <li><strong>Brand Story:</strong> Every customer received a handwritten thank-you note and info about ocean conservation efforts</li>
+                </ol>
+            </div>
+
+            <h2>The Numbers: Full Transparency</h2>
+
+            <h3>Month 6 Breakdown:</h3>
+            <ul>
+                <li><strong>Revenue:</strong> $52,100</li>
+                <li><strong>Cost of Goods:</strong> -$15,630 (30%)</li>
+                <li><strong>Advertising:</strong> -$7,800 (15%)</li>
+                <li><strong>Shopify + Apps:</strong> -$350</li>
+                <li><strong>Packaging & Shipping:</strong> -$4,200</li>
+                <li><strong>Team (VA + Photographer):</strong> -$3,500</li>
+                <li><strong>Other Expenses:</strong> -$1,200</li>
+                <li><strong>Net Profit:</strong> $19,420 (37% margin)</li>
+            </ul>
+
+            <div class="quote-box">
+                "The biggest surprise? How much work it actually is. Instagram makes it look easy. But waking up to orders every morning and knowing I built this from nothing? Totally worth it."
+                <div class="quote-author">- Sarah Martinez</div>
+            </div>
+
+            <h2>Lessons You Can Apply to Your Store</h2>
+
+            <ol>
+                <li><strong>Don't wait for perfection.</strong> Sarah launched with 15 products and a free theme. She improved as she grew.</li>
+                <li><strong>Focus on 20% that drives 80%.</strong> 3 products generated most of her sales. Double down on winners.</li>
+                <li><strong>Content is free marketing.</strong> Her TikTok generated $30K+ in sales without spending a dime on ads.</li>
+                <li><strong>Build an email list from day one.</strong> It's your most valuable asset.</li>
+                <li><strong>Test small, scale what works.</strong> She started with $5/day ads and scaled to $100/day.</li>
+                <li><strong>Customer experience = competitive advantage.</strong> People paid more because they loved her brand.</li>
+                <li><strong>Stay consistent.</strong> She posted daily for 6 months straight, even when nobody was watching.</li>
+            </ol>
+
+            <h2>What's Next for Sarah?</h2>
+
+            <p>Today, Sarah's store does $150K+ per month. She's:</p>
+            <ul>
+                <li>Launching her own jewelry line (moving away from suppliers)</li>
+                <li>Opening a physical pop-up shop</li>
+                <li>Building a team of 5 people</li>
+                <li>Planning to hit $2M in annual revenue</li>
+            </ul>
+
+            <div class="cta-box">
+                <h3>Want to Start Your Own Success Story?</h3>
+                <p>Everything Sarah used to build her store is available to you right now</p>
+                <a href="https://shopify.pxf.io/yourafflink" class="cta-button">Start Your Free Trial →</a>
+                <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.9;">3-day free trial • No credit card required</p>
+            </div>
+
+            <h2>FAQs from Sarah</h2>
+
+            <p><strong>Q: Did you have any business experience?</strong><br>
+            A: No. I was a marketing manager, but I'd never run my own business. I learned everything from YouTube and trial and error.</p>
+
+            <p><strong>Q: How much did you invest to start?</strong><br>
+            A: About $1,500 total. $500 for initial inventory, $300 for ads, $200 for photography equipment, $500 for random expenses.</p>
+
+            <p><strong>Q: What would you do differently?</strong><br>
+            A: Start email marketing sooner. I left so much money on the table in months 1-2 by not collecting emails.</p>
+
+            <p><strong>Q: Is it too late to start in 2025?</strong><br>
+            A: Not at all. E-commerce is growing 15% year-over-year. There's never been a better time.</p>
+
+            <hr style="margin: 60px 0; border: none; border-top: 2px solid #e0e0e0;">
+
+            <p style="text-align: center; color: #666;">
+                <strong>More Success Stories:</strong><br>
+                <a href="case-studies.html" style="color: #5C6AC4;">View All Case Studies</a> •
+                <a href="guide-how-to-start.html" style="color: #5C6AC4;">Start Your Store</a> •
+                <a href="ebook.html" style="color: #5C6AC4;">Free eBook</a>
+            </p>
+        </div>
+    </article>
+</body>
+</html>

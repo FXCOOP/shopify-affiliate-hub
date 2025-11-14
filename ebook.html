@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free eBook: The Complete Shopify Success Blueprint 2025</title>
+    <meta name="description" content="Download our free 50-page guide to building a profitable Shopify store. Step-by-step strategies, templates, and case studies included.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .benefit-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.2rem;
+        }
+
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .form-container {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-container h2 {
+            color: #004C3F;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00875A;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00875A 0%, #004C3F 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,135,90,0.3);
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .trust-badge {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00875A;
+        }
+
+        .trust-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .what-inside {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #004C3F;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .chapter-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .chapter-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00875A 0%, #004C3F 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .chapter-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .chapter-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .bonus-section {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .bonus-card {
+            background: #f0f9f6;
+            border: 2px solid #00875A;
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .bonus-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .bonus-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #004C3F;
+        }
+
+        .bonus-value {
+            color: #00875A;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .testimonials {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 10px;
+            border-left: 4px solid #4ade80;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-role {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .final-cta {
+            background: #5C6AC4;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #5C6AC4;
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .form-container {
+                padding: 30px 20px;
+            }
+            .trust-badges {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>The Complete Shopify Success Blueprint</h1>
+                <p>Everything you need to launch, grow, and scale a profitable Shopify store in 2025</p>
+
+                <ul class="benefit-list">
+                    <li>50+ pages of actionable strategies</li>
+                    <li>Real case studies with revenue screenshots</li>
+                    <li>Step-by-step launch checklist</li>
+                    <li>Product research templates</li>
+                    <li>Email marketing scripts</li>
+                    <li>$500+ worth of bonus resources</li>
+                </ul>
+
+                <p style="font-size: 2rem; margin-top: 30px;">
+                    <strong>100% FREE</strong><br>
+                    <span style="font-size: 1.2rem; opacity: 0.9;">No credit card required</span>
+                </p>
+            </div>
+
+            <div class="form-container">
+                <h2>Download Your Free Copy</h2>
+                <p class="form-subtitle">Join 15,000+ entrepreneurs building their Shopify empire</p>
+
+                <form id="ebookForm">
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="firstName" required placeholder="Enter your first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required placeholder="you@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>What best describes you? *</label>
+                        <select name="experience" required style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            <option value="">Select one...</option>
+                            <option value="complete-beginner">Complete beginner</option>
+                            <option value="researching">Researching, not started yet</option>
+                            <option value="building-store">Currently building my store</option>
+                            <option value="launched">Already launched, need to grow</option>
+                            <option value="established">Established store owner</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Get Instant Access →</button>
+                </form>
+
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <div class="trust-number">15K+</div>
+                        <div class="trust-label">Downloads</div>
+                    </div>
+                    <div class="trust-badge">
+                        <div class="trust-number">4.9★</div>
+                        <div class="trust-label">Rating</div>
+                    </div>
+                    <div class="trust-badge">
+                        <div class="trust-number">100%</div>
+                        <div class="trust-label">Free</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="what-inside">
+        <div class="container">
+            <h2 class="section-title">What's Inside the eBook</h2>
+
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-number">1</div>
+                    <h3>Finding Your Winning Product</h3>
+                    <p>Learn the exact research process to discover products that sell. Includes my 10-point validation checklist and access to 50+ profitable niches.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">2</div>
+                    <h3>Setting Up Your Store</h3>
+                    <p>Step-by-step walkthrough of Shopify setup. From choosing themes to configuring payments - everything explained with screenshots.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">3</div>
+                    <h3>Product Photography That Sells</h3>
+                    <p>Professional techniques for creating stunning product photos with just a smartphone. Increase conversions by 200%+.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">4</div>
+                    <h3>Writing Product Descriptions</h3>
+                    <p>Templates and formulas for descriptions that convert. Learn the psychology of persuasive copywriting.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">5</div>
+                    <h3>Traffic Generation Strategies</h3>
+                    <p>7 proven methods to drive targeted traffic. Both free (SEO, social media) and paid (Facebook, Google) strategies covered.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">6</div>
+                    <h3>Facebook Ads Mastery</h3>
+                    <p>Complete guide to profitable Facebook advertising. Target audiences, ad creative, budgeting, and scaling strategies.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">7</div>
+                    <h3>Email Marketing That Converts</h3>
+                    <p>Pre-written email sequences for welcome, cart abandonment, and post-purchase. Copy-paste ready templates included.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">8</div>
+                    <h3>Conversion Rate Optimization</h3>
+                    <p>Simple tweaks to double your sales without increasing traffic. A/B testing strategies and best practices.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">9</div>
+                    <h3>Customer Service Excellence</h3>
+                    <p>Turn customers into raving fans. Response templates, refund policies, and retention strategies.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">10</div>
+                    <h3>Scaling to $100K/Month</h3>
+                    <p>Advanced strategies for serious growth. Hiring, automation, systems, and expansion tactics.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">11</div>
+                    <h3>5 Complete Case Studies</h3>
+                    <p>Real stores, real numbers. See exactly how successful entrepreneurs built 6-figure Shopify businesses.</p>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">12</div>
+                    <h3>90-Day Action Plan</h3>
+                    <p>Day-by-day blueprint for your first 3 months. Know exactly what to do and when to do it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bonus-section">
+        <div class="container">
+            <h2 class="section-title">Plus These FREE Bonuses</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 20px;">Worth $500+ if purchased separately</p>
+
+            <div class="bonus-grid">
+                <div class="bonus-card">
+                    <div class="bonus-icon">📋</div>
+                    <h4>Launch Checklist</h4>
+                    <p>Don't miss critical steps. Complete pre-launch checklist.</p>
+                    <div class="bonus-value">Value: $29</div>
+                </div>
+
+                <div class="bonus-card">
+                    <div class="bonus-icon">📊</div>
+                    <h4>Product Research Sheet</h4>
+                    <p>Evaluate products like a pro. Google Sheets template included.</p>
+                    <div class="bonus-value">Value: $49</div>
+                </div>
+
+                <div class="bonus-card">
+                    <div class="bonus-icon">✉️</div>
+                    <h4>Email Templates</h4>
+                    <p>15 proven email templates ready to customize and use.</p>
+                    <div class="bonus-value">Value: $97</div>
+                </div>
+
+                <div class="bonus-card">
+                    <div class="bonus-icon">📱</div>
+                    <h4>Social Media Content Calendar</h4>
+                    <p>30 days of post ideas. Never run out of content again.</p>
+                    <div class="bonus-value">Value: $79</div>
+                </div>
+
+                <div class="bonus-card">
+                    <div class="bonus-icon">🎨</div>
+                    <h4>Canva Templates</h4>
+                    <p>50+ professional designs for ads, posts, and stories.</p>
+                    <div class="bonus-value">Value: $149</div>
+                </div>
+
+                <div class="bonus-card">
+                    <div class="bonus-icon">🎓</div>
+                    <h4>Video Training</h4>
+                    <p>Access to 3-hour video course ($197 value).</p>
+                    <div class="bonus-value">Value: $197</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">What Readers Are Saying</h2>
+
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "This eBook is worth way more than free! I followed the strategies and made my first $10K in 3 months. The email templates alone are worth hundreds."
+                    </div>
+                    <div class="testimonial-author">Jessica M.</div>
+                    <div class="testimonial-role">Fashion Store Owner</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Finally, a guide that's actually actionable. No fluff, just step-by-step instructions. Used it to launch my store and got my first sale within 72 hours!"
+                    </div>
+                    <div class="testimonial-author">Mike Chen</div>
+                    <div class="testimonial-role">Electronics Store</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "I was overwhelmed with all the information online. This eBook organized everything I needed to know in one place. Saved me months of trial and error."
+                    </div>
+                    <div class="testimonial-author">Emma Rodriguez</div>
+                    <div class="testimonial-role">Home Decor Business</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "The case studies are incredibly inspiring. Seeing real numbers from real people gave me the confidence to quit my job and do this full-time."
+                    </div>
+                    <div class="testimonial-author">David Kim</div>
+                    <div class="testimonial-role">Pet Products Store</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Already had a store but was stuck at $5K/month. The scaling chapter helped me implement systems that got me to $25K/month in 2 months."
+                    </div>
+                    <div class="testimonial-author">Sarah Johnson</div>
+                    <div class="testimonial-role">Wellness Products</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "The Facebook ads section is pure gold. Went from losing money on ads to 4x ROAS in 3 weeks. This eBook paid for itself 1000x over."
+                    </div>
+                    <div class="testimonial-author">Alex Thompson</div>
+                    <div class="testimonial-role">Sports Equipment Store</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <h2>Ready to Build Your Shopify Empire?</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 30px;">Download the complete blueprint + all bonuses now (100% FREE)</p>
+        <a href="#" onclick="scrollToForm(); return false;" class="cta-button">Get Instant Access →</a>
+        <p style="margin-top: 25px; font-size: 1rem; opacity: 0.9;">15,000+ entrepreneurs have already downloaded it. Join them today!</p>
+    </section>
+
+    <script>
+        document.getElementById('ebookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                firstName: this.firstName.value,
+                email: this.email.value,
+                experience: this.experience.value
+            };
+
+            // Here you would integrate with your email service provider
+            // Examples: ConvertKit, Mailchimp, ActiveCampaign
+            console.log('Lead captured:', formData);
+
+            // Redirect to thank you page with Shopify CTA
+            window.location.href = 'thank-you-ebook.html?email=' + encodeURIComponent(formData.email);
+
+            // Or integrate with email service API:
+            // fetch('/api/subscribe', { method: 'POST', body: JSON.stringify(formData) })
+        });
+
+        function scrollToForm() {
+            document.querySelector('.form-container').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Track download intent
+        window.addEventListener('load', function() {
+            console.log('eBook page loaded - track this event');
+        });
+    </script>
+</body>
+</html>

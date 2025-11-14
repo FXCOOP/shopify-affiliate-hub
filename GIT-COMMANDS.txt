@@ -1,0 +1,167 @@
+===========================================
+EXACT COMMANDS TO UPLOAD TO YOUR GITHUB
+For: https://github.com/FXCOOP
+===========================================
+
+STEP 1: Create Repository on GitHub
+------------------------------------
+1. Go to: https://github.com/new
+2. Repository name: shopify-affiliate-hub
+3. Description: Shopify affiliate minisite with guides, calculators, and case studies
+4. Keep it PUBLIC (required for free Render hosting)
+5. DON'T check "Initialize with README"
+6. Click "Create repository"
+
+
+STEP 2: Open Command Prompt
+----------------------------
+1. Open Command Prompt (Windows) or Terminal (Mac)
+2. Navigate to your folder:
+
+   cd C:\Users\User\OneDrive\Desktop\shopify-hub
+
+
+STEP 3: Run These Commands (Copy/Paste One by One)
+---------------------------------------------------
+
+git init
+
+git add .
+
+git commit -m "Initial commit - Complete Shopify affiliate minisite"
+
+git remote add origin https://github.com/FXCOOP/shopify-affiliate-hub.git
+
+git branch -M main
+
+git push -u origin main
+
+
+STEP 4: Enter Your GitHub Credentials
+--------------------------------------
+When prompted, enter:
+- Your GitHub username: FXCOOP
+- Your GitHub password (or Personal Access Token if you have 2FA enabled)
+
+
+DONE! Your code is now on GitHub!
+Check it at: https://github.com/FXCOOP/shopify-affiliate-hub
+
+
+===========================================
+DEPLOY TO RENDER (FREE HOSTING)
+===========================================
+
+STEP 1: Sign Up for Render
+---------------------------
+Go to: https://dashboard.render.com/register
+Sign up with GitHub (easiest way)
+
+
+STEP 2: Create New Static Site
+-------------------------------
+1. Click "New +" button (top right)
+2. Select "Static Site"
+3. Click "Connect GitHub"
+4. Find and select: FXCOOP/shopify-affiliate-hub
+5. Click "Connect"
+
+
+STEP 3: Configure Settings
+---------------------------
+Name: shopify-success-hub
+Branch: main
+Build Command: (leave empty)
+Publish Directory: .
+Auto-Deploy: Yes (checked)
+
+Click "Create Static Site"
+
+
+STEP 4: Wait for Deployment
+----------------------------
+Render will deploy your site (takes 1-2 minutes)
+Your site will be live at:
+https://shopify-success-hub.onrender.com
+
+
+===========================================
+TO UPDATE YOUR SITE LATER
+===========================================
+
+After making any changes to your files:
+
+cd C:\Users\User\OneDrive\Desktop\shopify-hub
+
+git add .
+
+git commit -m "Updated content"
+
+git push
+
+
+Render will automatically redeploy within 1-2 minutes!
+
+
+===========================================
+TROUBLESHOOTING
+===========================================
+
+ERROR: "git: command not found"
+SOLUTION: Install Git from https://git-scm.com/downloads
+
+ERROR: "remote origin already exists"
+SOLUTION: Run this first: git remote remove origin
+Then run the git remote add command again
+
+ERROR: Permission denied
+SOLUTION: Use Personal Access Token instead of password
+Generate at: https://github.com/settings/tokens
+
+ERROR: Files not uploading
+SOLUTION: Make sure you're in the correct folder
+Check with: cd C:\Users\User\OneDrive\Desktop\shopify-hub
+
+
+===========================================
+VERIFICATION CHECKLIST
+===========================================
+
+After deployment, verify:
+✅ Homepage loads at your Render URL
+✅ All navigation links work
+✅ Calculator functions properly
+✅ Forms display correctly
+✅ Images load
+✅ Mobile responsive (test on phone)
+✅ Affiliate links work (click to test)
+
+
+===========================================
+CUSTOM DOMAIN (OPTIONAL)
+===========================================
+
+Want yoursite.com instead of .onrender.com?
+
+1. Buy domain from Namecheap ($8-12/year)
+2. In Render dashboard, go to Settings
+3. Click "Custom Domain"
+4. Add your domain
+5. Copy the CNAME record
+6. Add to your domain's DNS settings
+7. Wait 10-60 minutes for propagation
+
+Done! Your site will be at yoursite.com
+
+
+===========================================
+NEXT STEPS
+===========================================
+
+1. Update ALL affiliate links
+2. Set up Google Analytics
+3. Start promoting your site
+4. Build email list
+5. Track results
+
+Your site is ready to make money! 💰

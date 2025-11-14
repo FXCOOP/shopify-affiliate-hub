@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Success Hub - Start Your Online Store Today</title>
+    <meta name="description" content="Complete guide to starting and growing your Shopify store. Free resources, case studies, and step-by-step tutorials.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .nav {
+            background: #004C3F;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: #5C6AC4;
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .cta-primary:hover {
+            background: #4959BD;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(92, 106, 196, 0.3);
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            background: white;
+            color: #004C3F;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .cta-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #004C3F;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #004C3F;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .articles-section {
+            background: #f8f9fa;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #5C6AC4 0%, #00875A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .article-content {
+            padding: 30px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: #5C6AC4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .article-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .article-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: #5C6AC4;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .cta-banner {
+            background: #5C6AC4;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-banner p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #004C3F;
+        }
+
+        .resource-card a {
+            color: #5C6AC4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer h4 {
+            margin-bottom: 20px;
+            color: #00875A;
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-secondary {
+                margin-left: 0;
+                margin-top: 15px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">🛍️ Shopify Success Hub</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
+                <li><a href="ebook.html">Free eBook</a></li>
+                <li><a href="calculator.html">Calculator</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Build Your Dream Store<br>Start Selling in Minutes</h1>
+        <p>Everything you need to launch, grow, and scale your online business with Shopify</p>
+        <a href="https://shopify.pxf.io/yourafflink" class="cta-primary">Start Free Trial →</a>
+        <a href="ebook.html" class="cta-secondary">Download Free Guide</a>
+    </section>
+
+    <!-- Why Shopify Section -->
+    <section class="container">
+        <h2 class="section-title">Why 4.6 Million Businesses Choose Shopify</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Launch in Minutes</h3>
+                <p>No technical skills needed. Beautiful themes, drag-and-drop builder, and instant setup. Your store can be live today.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Built-In Payments</h3>
+                <p>Accept credit cards, PayPal, Apple Pay, and 100+ payment methods. Get paid instantly with Shopify Payments.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Optimized</h3>
+                <p>Every theme is fully responsive. 79% of users shop on mobile - your store will look perfect on any device.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Powerful Analytics</h3>
+                <p>Track sales, visitors, conversion rates, and customer behavior. Make data-driven decisions to grow faster.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Shipping Made Easy</h3>
+                <p>Print labels, track shipments, and get discounted rates from USPS, UPS, and DHL. Shipping automation included.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>8,000+ Apps</h3>
+                <p>Extend your store with apps for marketing, SEO, inventory management, customer support, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Shopify by the Numbers</h2>
+        <p style="font-size: 1.2rem; opacity: 0.9;">The platform powering the future of commerce</p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">4.6M+</div>
+                <div class="stat-label">Active Stores</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">$444B</div>
+                <div class="stat-label">Total Sales</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">175</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.99%</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <div class="container">
+            <h2 class="section-title">Popular Guides & Tutorials</h2>
+
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-image">📖</div>
+                    <div class="article-content">
+                        <span class="article-tag">Beginner Guide</span>
+                        <h3>How to Start a Shopify Store in 2025</h3>
+                        <p>Complete step-by-step guide from setup to your first sale. No experience required.</p>
+                        <a href="guide-how-to-start.html" class="read-more">Read Full Guide →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">💰</div>
+                    <div class="article-content">
+                        <span class="article-tag">Marketing</span>
+                        <h3>10 Ways to Get Your First 100 Sales</h3>
+                        <p>Proven traffic strategies that converted for 1000+ new stores. Real results, real tactics.</p>
+                        <a href="guide-first-sales.html" class="read-more">Read Full Guide →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">🎯</div>
+                    <div class="article-content">
+                        <span class="article-tag">Case Study</span>
+                        <h3>$0 to $50K/Month in 6 Months</h3>
+                        <p>How Sarah built a 6-figure jewelry business with Shopify. See the exact strategies she used.</p>
+                        <a href="case-study-jewelry.html" class="read-more">Read Case Study →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">🔍</div>
+                    <div class="article-content">
+                        <span class="article-tag">Strategy</span>
+                        <h3>Best Shopify Apps for Beginners</h3>
+                        <p>The 15 essential apps you need to install on day one. Free and paid options included.</p>
+                        <a href="guide-best-apps.html" class="read-more">Read Full Guide →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">🚀</div>
+                    <div class="article-content">
+                        <span class="article-tag">Advanced</span>
+                        <h3>Scale to $100K/Month</h3>
+                        <p>Advanced strategies for growing your Shopify store. Facebook ads, SEO, email marketing.</p>
+                        <a href="guide-scale-100k.html" class="read-more">Read Full Guide →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">📦</div>
+                    <div class="article-content">
+                        <span class="article-tag">Dropshipping</span>
+                        <h3>Shopify Dropshipping Guide 2025</h3>
+                        <p>Start selling without inventory. Find suppliers, products, and automate order fulfillment.</p>
+                        <a href="guide-dropshipping.html" class="read-more">Read Full Guide →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Resources Section -->
+    <section class="container">
+        <h2 class="section-title">Free Resources & Tools</h2>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-icon">📚</div>
+                <h3>Complete eBook</h3>
+                <p>50-page guide to Shopify success</p>
+                <a href="ebook.html">Download Free →</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">🧮</div>
+                <h3>Profit Calculator</h3>
+                <p>Calculate margins and pricing</p>
+                <a href="calculator.html">Try Calculator →</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">✅</div>
+                <h3>Launch Checklist</h3>
+                <p>Don't miss these critical steps</p>
+                <a href="checklist.html">Get Checklist →</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">📊</div>
+                <h3>Comparison Tool</h3>
+                <p>Shopify vs competitors</p>
+                <a href="comparison.html">Compare Now →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <h2>Ready to Start Your Online Business?</h2>
+        <p>Join 4.6 million entrepreneurs building their dreams with Shopify</p>
+        <a href="https://shopify.pxf.io/yourafflink" class="cta-primary" style="background: white; color: #5C6AC4;">Start Your Free Trial →</a>
+        <p style="margin-top: 20px; font-size: 1rem;">No credit card required • 3-day free trial • Cancel anytime</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>Getting Started</h4>
+                <ul>
+                    <li><a href="guide-how-to-start.html">How to Start</a></li>
+                    <li><a href="guide-first-sales.html">Get First Sales</a></li>
+                    <li><a href="guide-best-apps.html">Essential Apps</a></li>
+                    <li><a href="pricing.html">Pricing Guide</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Case Studies</h4>
+                <ul>
+                    <li><a href="case-study-jewelry.html">Jewelry Store</a></li>
+                    <li><a href="case-study-dropship.html">Dropshipping</a></li>
+                    <li><a href="case-study-fashion.html">Fashion Brand</a></li>
+                    <li><a href="case-studies.html">All Success Stories</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Free Resources</h4>
+                <ul>
+                    <li><a href="ebook.html">Free eBook</a></li>
+                    <li><a href="calculator.html">Profit Calculator</a></li>
+                    <li><a href="checklist.html">Launch Checklist</a></li>
+                    <li><a href="templates.html">Email Templates</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Shopify Success Hub. This site contains affiliate links. We may earn a commission from qualifying purchases.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Track affiliate link clicks
+        document.querySelectorAll('a[href*="shopify"]').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('Shopify affiliate link clicked:', this.href);
+                // Add your tracking pixel/GA event here
+            });
+        });
+    </script>
+</body>
+</html>

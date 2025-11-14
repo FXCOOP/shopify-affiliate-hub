@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Profit Calculator - Calculate Your Potential Earnings</title>
+    <meta name="description" content="Free Shopify profit calculator. See how much you can make selling online. Calculate profit margins, pricing, and potential revenue.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 15px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .calculator-section {
+            background: #f8f9fa;
+            padding: 35px;
+            border-radius: 15px;
+        }
+
+        .calculator-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #1e3c72;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .input-prefix {
+            position: relative;
+        }
+
+        .input-prefix:before {
+            content: "$";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: bold;
+        }
+
+        .input-prefix input {
+            padding-left: 30px;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .results {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .result-card.warning {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        }
+
+        .result-card.danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .result-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .result-sub {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .breakdown {
+            background: #f8f9fa;
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .breakdown h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #1e3c72;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1.1rem;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-label {
+            color: #666;
+        }
+
+        .breakdown-value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .breakdown-value.positive {
+            color: #28a745;
+        }
+
+        .breakdown-value.negative {
+            color: #dc3545;
+        }
+
+        .recommendations {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .recommendations h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .recommendations li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            .calculator-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">← Back to Shopify Success Hub</a>
+    </div>
+
+    <div class="container">
+        <h1>💰 Shopify Profit Calculator</h1>
+        <p class="subtitle">Calculate your potential earnings, profit margins, and break-even point</p>
+
+        <div class="calculator-grid">
+            <div class="calculator-section">
+                <h2>Product Costs</h2>
+
+                <div class="input-group">
+                    <label for="productCost">Product Cost (per unit)</label>
+                    <div class="input-prefix">
+                        <input type="number" id="productCost" placeholder="15.00" min="0" step="0.01" value="15">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="shippingCost">Shipping Cost (per unit)</label>
+                    <div class="input-prefix">
+                        <input type="number" id="shippingCost" placeholder="5.00" min="0" step="0.01" value="5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="packagingCost">Packaging Cost (per unit)</label>
+                    <div class="input-prefix">
+                        <input type="number" id="packagingCost" placeholder="2.00" min="0" step="0.01" value="2">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="sellingPrice">Selling Price</label>
+                    <div class="input-prefix">
+                        <input type="number" id="sellingPrice" placeholder="49.99" min="0" step="0.01" value="50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h2>Business Costs & Goals</h2>
+
+                <div class="input-group">
+                    <label for="monthlyAdSpend">Monthly Ad Spend</label>
+                    <div class="input-prefix">
+                        <input type="number" id="monthlyAdSpend" placeholder="1000" min="0" step="10" value="1000">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="shopifyPlan">Shopify Plan Cost (monthly)</label>
+                    <div class="input-prefix">
+                        <input type="number" id="shopifyPlan" placeholder="39" min="0" step="1" value="39">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="otherCosts">Other Monthly Costs (apps, tools)</label>
+                    <div class="input-prefix">
+                        <input type="number" id="otherCosts" placeholder="100" min="0" step="10" value="100">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="monthlyOrders">Expected Monthly Orders</label>
+                    <input type="number" id="monthlyOrders" placeholder="100" min="1" step="1" value="100">
+                </div>
+            </div>
+        </div>
+
+        <button class="calculate-btn" onclick="calculateProfit()">Calculate My Profit →</button>
+
+        <div class="results" id="results">
+            <div class="results-grid">
+                <div class="result-card" id="revenueCard">
+                    <div class="result-label">Monthly Revenue</div>
+                    <div class="result-value" id="monthlyRevenue">$0</div>
+                    <div class="result-sub">Total sales</div>
+                </div>
+
+                <div class="result-card" id="profitCard">
+                    <div class="result-label">Monthly Profit</div>
+                    <div class="result-value" id="monthlyProfit">$0</div>
+                    <div class="result-sub" id="profitMargin">0% margin</div>
+                </div>
+
+                <div class="result-card" id="perOrderCard">
+                    <div class="result-label">Profit Per Order</div>
+                    <div class="result-value" id="profitPerOrder">$0</div>
+                    <div class="result-sub">After all costs</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-label">Break-Even Orders</div>
+                    <div class="result-value" id="breakEven">0</div>
+                    <div class="result-sub">To cover costs</div>
+                </div>
+            </div>
+
+            <div class="breakdown">
+                <h3>Detailed Breakdown</h3>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Revenue (Sales)</span>
+                    <span class="breakdown-value positive" id="detailRevenue">$0</span>
+                </div>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Cost of Goods Sold</span>
+                    <span class="breakdown-value negative" id="detailCOGS">$0</span>
+                </div>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Shipping Costs</span>
+                    <span class="breakdown-value negative" id="detailShipping">$0</span>
+                </div>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Packaging Costs</span>
+                    <span class="breakdown-value negative" id="detailPackaging">$0</span>
+                </div>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Advertising Costs</span>
+                    <span class="breakdown-value negative" id="detailAds">$0</span>
+                </div>
+
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Shopify & Apps</span>
+                    <span class="breakdown-value negative" id="detailShopify">$0</span>
+                </div>
+
+                <div class="breakdown-item" style="border-top: 3px solid #28a745; margin-top: 10px; padding-top: 20px;">
+                    <span class="breakdown-label" style="font-size: 1.2rem; color: #333;"><strong>Net Profit</strong></span>
+                    <span class="breakdown-value" style="font-size: 1.3rem;" id="detailNetProfit">$0</span>
+                </div>
+            </div>
+
+            <div class="recommendations" id="recommendations">
+                <h3>💡 Recommendations to Improve Profitability</h3>
+                <ul id="recommendationsList">
+                    <!-- Dynamically generated -->
+                </ul>
+            </div>
+
+            <div class="cta-section">
+                <h2>Ready to Turn These Numbers Into Reality?</h2>
+                <p>Start your Shopify store today and start making profit</p>
+                <a href="https://shopify.pxf.io/yourafflink" class="cta-button">Start Free Trial →</a>
+                <p style="margin-top: 20px; font-size: 0.95rem; opacity: 0.9;">3-day free trial • No credit card required</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            // Get input values
+            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+            const packagingCost = parseFloat(document.getElementById('packagingCost').value) || 0;
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const monthlyAdSpend = parseFloat(document.getElementById('monthlyAdSpend').value) || 0;
+            const shopifyPlan = parseFloat(document.getElementById('shopifyPlan').value) || 0;
+            const otherCosts = parseFloat(document.getElementById('otherCosts').value) || 0;
+            const monthlyOrders = parseInt(document.getElementById('monthlyOrders').value) || 0;
+
+            if (monthlyOrders === 0 || sellingPrice === 0) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Calculate totals
+            const monthlyRevenue = sellingPrice * monthlyOrders;
+            const totalCOGS = productCost * monthlyOrders;
+            const totalShipping = shippingCost * monthlyOrders;
+            const totalPackaging = packagingCost * monthlyOrders;
+            const totalFixedCosts = shopifyPlan + otherCosts;
+            const totalCosts = totalCOGS + totalShipping + totalPackaging + monthlyAdSpend + totalFixedCosts;
+            const monthlyProfit = monthlyRevenue - totalCosts;
+            const profitMargin = ((monthlyProfit / monthlyRevenue) * 100).toFixed(1);
+            const profitPerOrder = (monthlyProfit / monthlyOrders).toFixed(2);
+
+            // Calculate break-even
+            const variableCostPerUnit = productCost + shippingCost + packagingCost;
+            const contributionMargin = sellingPrice - variableCostPerUnit;
+            const breakEvenOrders = Math.ceil((monthlyAdSpend + totalFixedCosts) / contributionMargin);
+
+            // Display results
+            document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+            document.getElementById('monthlyProfit').textContent = (monthlyProfit >= 0 ? '+$' : '-$') + Math.abs(monthlyProfit).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+            document.getElementById('profitMargin').textContent = profitMargin + '% margin';
+            document.getElementById('profitPerOrder').textContent = (profitPerOrder >= 0 ? '+$' : '-$') + Math.abs(profitPerOrder);
+            document.getElementById('breakEven').textContent = breakEvenOrders;
+
+            // Detailed breakdown
+            document.getElementById('detailRevenue').textContent = '+$' + monthlyRevenue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailCOGS').textContent = '-$' + totalCOGS.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailShipping').textContent = '-$' + totalShipping.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailPackaging').textContent = '-$' + totalPackaging.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailAds').textContent = '-$' + monthlyAdSpend.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailShopify').textContent = '-$' + totalFixedCosts.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('detailNetProfit').textContent = (monthlyProfit >= 0 ? '+$' : '-$') + Math.abs(monthlyProfit).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            // Color code profit card
+            const profitCard = document.getElementById('profitCard');
+            profitCard.className = 'result-card';
+            if (monthlyProfit < 0) {
+                profitCard.classList.add('danger');
+            } else if (profitMargin < 20) {
+                profitCard.classList.add('warning');
+            }
+
+            // Generate recommendations
+            const recommendations = [];
+
+            if (profitMargin < 30) {
+                recommendations.push('Your profit margin is low. Consider increasing prices or reducing costs.');
+            }
+
+            if (productCost / sellingPrice > 0.4) {
+                recommendations.push('Product cost is high (>40% of price). Look for cheaper suppliers or negotiate better rates.');
+            }
+
+            if (monthlyAdSpend / monthlyRevenue > 0.3) {
+                recommendations.push('Ad spend is high (>30% of revenue). Focus on improving ROAS or try organic marketing.');
+            }
+
+            if (sellingPrice < 30) {
+                recommendations.push('Low selling price makes profit difficult. Consider bundling products or focusing on premium items.');
+            }
+
+            if (profitPerOrder < 10) {
+                recommendations.push('Profit per order is low. Increase average order value with upsells and bundles.');
+            }
+
+            if (monthlyProfit > 0 && profitMargin > 30) {
+                recommendations.push('Great margins! Consider scaling with more ad spend to grow revenue.');
+            }
+
+            recommendations.push('Build an email list to reduce customer acquisition costs over time.');
+            recommendations.push('Optimize your conversion rate - even a 1% improvement can significantly boost profits.');
+
+            // Display recommendations
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recList.appendChild(li);
+            });
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Allow Enter key to calculate
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateProfit();
+                }
+            });
+        });
+
+        // Auto-calculate on input change (optional)
+        // document.querySelectorAll('input').forEach(input => {
+        //     input.addEventListener('input', calculateProfit);
+        // });
+    </script>
+</body>
+</html>
