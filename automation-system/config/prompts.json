@@ -1,0 +1,27 @@
+{
+  "reddit": {
+    "valuePost": "Create a helpful Reddit post for r/shopify about starting a Shopify store. Include 5 actionable tips. Be conversational and genuine. At the end, naturally mention 'I created a free guide if anyone wants more details' and include the site URL. 300-500 words.",
+    "comment": "Generate a helpful comment answering a Shopify beginner question. Be specific and actionable. If relevant, mention the free calculator tool. Keep it under 200 words."
+  },
+  "twitter": {
+    "thread": "Create a viral Twitter thread (10-15 tweets) about Shopify. Start with a hook like 'I analyzed 100 Shopify stores. Here's what they all have in common:' Include specific numbers and actionable advice. End with CTA to the profit calculator. Number each tweet (1/15, 2/15, etc.)"
+  },
+  "quora": {
+    "answer": "Write a comprehensive Quora answer (500-1000 words) about starting a Shopify store. Include personal experience, specific steps, and realistic expectations. Naturally include 1-2 links to helpful resources (the beginner guide or calculator). Use formatting with bold and bullets."
+  },
+  "medium": {
+    "article": "Write a 1500-2500 word Medium article about Shopify success strategies. Include a compelling headline with numbers, personal story or case study, actionable steps, and 2-3 natural links to helpful resources. Use subheadings every 3-4 paragraphs. Write in first person for authenticity."
+  },
+  "linkedin": {
+    "post": "Create a professional LinkedIn post (150-300 words) about ecommerce/Shopify. Share a business lesson or insight. Use line breaks for readability. Include 3-5 hashtags: #Shopify #Ecommerce #Entrepreneurship #OnlineBusiness #SmallBusiness. Professional but conversational tone."
+  },
+  "pinterest": {
+    "description": "Create a Pinterest pin description (150-300 characters) that's SEO-optimized for Shopify keywords. Include clear value proposition and call-to-action. Keywords to use: Shopify, ecommerce, online store, dropshipping, business."
+  },
+  "youtube": {
+    "comment": "Write a helpful YouTube comment for a Shopify tutorial video. Add value by sharing a tip or insight. Keep it under 150 words. If genuinely relevant, mention the free calculator or guide. Don't be spammy."
+  },
+  "facebook": {
+    "groupPost": "Create a Facebook group post for Shopify entrepreneur groups. Ask an engaging question or share a helpful tip. Be genuine and conversational. Include value first, promotion second. 200-400 words."
+  }
+}
