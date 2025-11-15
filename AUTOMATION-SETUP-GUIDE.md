@@ -118,15 +118,15 @@ Reddit   | @shopify_helper | your@email.com | pass123 | Active
 3. Copy this into "What would you like ChatGPT to know about you":
 
 ```
-I'm promoting a Shopify affiliate website at [YOUR ACTUAL URL].
+I'm promoting a Shopify affiliate website at https://shopify-success-hub.onrender.com.
 
 My key pages:
-- Beginner guide: [URL]/guide-how-to-start.html
-- Profit calculator: [URL]/calculator.html
-- Case studies: [URL]/case-studies.html
-- Cost breakdown: [URL]/guide-pricing.html
-- Best apps guide: [URL]/guide-best-apps.html
-- First sales strategies: [URL]/guide-first-sales.html
+- Beginner guide: https://shopify-success-hub.onrender.com/guide-how-to-start.html
+- Profit calculator: https://shopify-success-hub.onrender.com/calculator.html
+- Case studies: https://shopify-success-hub.onrender.com/case-studies.html
+- Cost breakdown: https://shopify-success-hub.onrender.com/guide-pricing.html
+- Best apps guide: https://shopify-success-hub.onrender.com/guide-best-apps.html
+- First sales strategies: https://shopify-success-hub.onrender.com/guide-first-sales.html
 
 My affiliate commission: $150 per Shopify sale (US/CA/AU)
 

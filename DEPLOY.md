@@ -28,7 +28,7 @@ Before deploying, **replace all affiliate links** in these files:
 
 **Find & Replace:**
 ```
-Find: https://shopify.pxf.io/yourafflink
+Find: https://shopify.pxf.io/Qj5oDz
 Replace: https://shopify.pxf.io/YOUR_ACTUAL_AFFILIATE_ID
 ```
 

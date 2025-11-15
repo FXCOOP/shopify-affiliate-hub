@@ -8,7 +8,7 @@
 
 Open ALL `.html` files and replace:
 ```
-https://shopify.pxf.io/yourafflink
+https://shopify.pxf.io/Qj5oDz
 ```
 
 With YOUR actual Shopify affiliate link.
@@ -16,7 +16,7 @@ With YOUR actual Shopify affiliate link.
 **How to do this fast:**
 1. Open VS Code
 2. Press `Ctrl + Shift + F` (Find in Files)
-3. Find: `https://shopify.pxf.io/yourafflink`
+3. Find: `https://shopify.pxf.io/Qj5oDz`
 4. Replace: `YOUR_ACTUAL_SHOPIFY_AFFILIATE_LINK`
 5. Click "Replace All"
 

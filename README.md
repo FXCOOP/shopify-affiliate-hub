@@ -61,7 +61,7 @@ Based on your Shopify affiliate agreement:
 
 ### Step 1: Update Affiliate Links
 
-Replace `https://shopify.pxf.io/yourafflink` with your actual Shopify affiliate link in:
+Replace `https://shopify.pxf.io/Qj5oDz` with your actual Shopify affiliate link in:
 
 - index.html (3 instances)
 - guide-how-to-start.html (3 instances)
@@ -71,7 +71,7 @@ Replace `https://shopify.pxf.io/yourafflink` with your actual Shopify affiliate 
 
 **Find & Replace:**
 ```
-Find: https://shopify.pxf.io/yourafflink
+Find: https://shopify.pxf.io/Qj5oDz
 Replace: YOUR_ACTUAL_SHOPIFY_AFFILIATE_LINK
 ```
 
