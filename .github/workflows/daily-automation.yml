@@ -1,0 +1,106 @@
+name: 🤖 Daily Social Media Automation
+
+on:
+  schedule:
+    # Runs at 7:00 AM UTC every day
+    # Adjust for your timezone: https://crontab.guru
+    - cron: '0 7 * * *'
+
+  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  automate-posting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60  # Max 1 hour
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: automation-system/package.json
+
+      - name: 📦 Install dependencies
+        run: |
+          cd automation-system
+          npm ci
+
+      - name: 🤖 Run automation
+        run: |
+          cd automation-system
+          node main.js --now
+        env:
+          # OpenAI API
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: 'gpt-4o-mini'
+
+          # Site URLs
+          SITE_URL: 'https://shopify-success-hub.onrender.com'
+          AFFILIATE_LINK: 'https://shopify.pxf.io/Qj5oDz'
+
+          # Reddit API
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          REDDIT_USER_AGENT: 'ShopifyAutomation/1.0'
+
+          # Twitter API
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+
+          # Pinterest API
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+
+          # Browser automation credentials
+          QUORA_EMAIL: ${{ secrets.QUORA_EMAIL }}
+          QUORA_PASSWORD: ${{ secrets.QUORA_PASSWORD }}
+          MEDIUM_EMAIL: ${{ secrets.MEDIUM_EMAIL }}
+          MEDIUM_PASSWORD: ${{ secrets.MEDIUM_PASSWORD }}
+          LINKEDIN_EMAIL: ${{ secrets.LINKEDIN_EMAIL }}
+          LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
+          YOUTUBE_EMAIL: ${{ secrets.YOUTUBE_EMAIL }}
+          YOUTUBE_PASSWORD: ${{ secrets.YOUTUBE_PASSWORD }}
+
+          # Options
+          HEADLESS_BROWSER: 'true'
+          MAX_RETRIES: '3'
+          DELAY_BETWEEN_POSTS: '300000'
+
+      - name: 📊 Upload activity logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: automation-logs-${{ github.run_number }}
+          path: |
+            automation-system/logs/activity.log
+            automation-system/logs/errors.log
+          retention-days: 30
+
+      - name: 📊 Upload database
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: automation-database-${{ github.run_number }}
+          path: automation-system/database/*.db
+          retention-days: 7
+
+      - name: ✅ Success notification
+        if: success()
+        run: |
+          echo "✅ Automation completed successfully!"
+          echo "Check the logs for details of what was posted."
+
+      - name: ❌ Failure notification
+        if: failure()
+        run: |
+          echo "❌ Automation failed!"
+          echo "Check error logs for details."
+          exit 1
