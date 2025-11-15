@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify FAQ - 50+ Questions Answered | Complete Guide 2025</title>
+    <meta name="description" content="All your Shopify questions answered. Pricing, features, setup, apps, shipping, payments, and more. Expert answers from real store owners.">
+    <link rel="canonical" href="https://shopify-success-hub.onrender.com/faq.html">
+
+    <!-- Schema Markup for FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How much does Shopify cost per month?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Shopify has three main plans: Basic at $39/month, Shopify at $105/month, and Advanced at $399/month. All plans include hosting, SSL certificate, unlimited products, and 24/7 support. Most beginners start with the Basic plan."
+        }
+      },{
+        "@type": "Question",
+        "name": "Is Shopify better than WooCommerce?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Shopify is easier to use and includes hosting, security, and updates. WooCommerce is free but requires technical knowledge and you manage hosting yourself. For beginners, Shopify is the better choice due to its ease of use and all-in-one solution."
+        }
+      },{
+        "@type": "Question",
+        "name": "Can I start Shopify with no money?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You need at least $39 for the monthly Shopify fee. However, with dropshipping, you don't need inventory upfront. Total minimum to start: $39 (Shopify) + $15 (domain) + $100-200 (ads/marketing) = approximately $150-250."
+        }
+      }]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .nav {
+            background: #004C3F;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo { font-size: 1.3rem; font-weight: bold; }
+        .logo a { color: white; text-decoration: none; }
+
+        .header {
+            background: linear-gradient(135deg, #004C3F 0%, #00875A 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -40px auto 80px;
+            background: white;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .faq-search {
+            margin-bottom: 40px;
+        }
+
+        .faq-search input {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .faq-search input:focus {
+            outline: none;
+            border-color: #00875A;
+        }
+
+        .faq-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .faq-category-btn {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .faq-category-btn:hover,
+        .faq-category-btn.active {
+            background: #00875A;
+            color: white;
+            border-color: #00875A;
+        }
+
+        .faq-section {
+            margin-bottom: 60px;
+        }
+
+        .faq-section h2 {
+            font-size: 2rem;
+            color: #004C3F;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #00875A;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: #00875A;
+        }
+
+        .faq-question {
+            padding: 25px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: #00875A;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 25px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .faq-answer-content ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .faq-answer-content li {
+            margin: 8px 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #5C6AC4 0%, #4959BD 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #5C6AC4;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            .header h1 { font-size: 2rem; }
+            .faq-categories { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">🛍️ Shopify Success Hub</a></div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1>Shopify FAQ - Everything You Need to Know</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9;">50+ questions answered by real Shopify store owners</p>
+    </header>
+
+    <div class="container">
+        <div class="faq-search">
+            <input type="text" id="faqSearch" placeholder="🔍 Search questions..." onkeyup="searchFAQ()">
+        </div>
+
+        <div class="faq-categories">
+            <div class="faq-category-btn active" onclick="filterCategory('all')">All Questions</div>
+            <div class="faq-category-btn" onclick="filterCategory('pricing')">Pricing</div>
+            <div class="faq-category-btn" onclick="filterCategory('setup')">Setup</div>
+            <div class="faq-category-btn" onclick="filterCategory('features')">Features</div>
+            <div class="faq-category-btn" onclick="filterCategory('selling')">Selling</div>
+        </div>
+
+        <!-- PRICING SECTION -->
+        <div class="faq-section" data-category="pricing">
+            <h2>💰 Pricing & Plans</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How much does Shopify cost per month?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Shopify has three main pricing plans:</strong></p>
+                        <ul>
+                            <li><strong>Basic ($39/month):</strong> Perfect for new stores. Includes unlimited products, 2 staff accounts, 24/7 support.</li>
+                            <li><strong>Shopify ($105/month):</strong> For growing businesses. Includes 5 staff accounts, professional reports, lower credit card rates.</li>
+                            <li><strong>Advanced ($399/month):</strong> For high-volume stores. Includes 15 staff accounts, advanced report builder, lowest credit card fees.</li>
+                        </ul>
+                        <p><strong>What's included in ALL plans:</strong> Hosting, SSL certificate, unlimited products, unlimited bandwidth, abandoned cart recovery, discount codes, gift cards, and manual order creation.</p>
+                        <p><strong>Recommendation:</strong> 95% of new stores should start with Basic ($39/month). You can always upgrade later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Are there any transaction fees?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>It depends on your payment method:</strong></p>
+                        <ul>
+                            <li><strong>Using Shopify Payments:</strong> 0% transaction fees (you only pay credit card processing fees: 2.9% + 30¢ per transaction on Basic plan)</li>
+                            <li><strong>Using third-party payment gateway (PayPal, Stripe, etc.):</strong> 2% transaction fee + the payment gateway's fees</li>
+                        </ul>
+                        <p><strong>Example:</strong> $100 sale with Shopify Payments = $2.90 + $0.30 = $3.20 in fees (3.2%)</p>
+                        <p><strong>Example:</strong> $100 sale with PayPal = $2.00 (Shopify) + $2.90 (PayPal) + $0.30 = $5.20 in fees (5.2%)</p>
+                        <p><strong>Best practice:</strong> Use Shopify Payments to avoid the 2% transaction fee.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I start Shopify with no money?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Minimum realistic budget: $150-250</strong></p>
+                        <p>Here's what you absolutely need:</p>
+                        <ul>
+                            <li><strong>Shopify subscription:</strong> $39/month (required)</li>
+                            <li><strong>Domain name:</strong> $15/year (optional but recommended)</li>
+                            <li><strong>Marketing budget:</strong> $100-200 (for initial traffic - ads, influencers)</li>
+                        </ul>
+                        <p><strong>If you're dropshipping:</strong> You don't need inventory upfront, which saves thousands. You only pay for products after customers pay you.</p>
+                        <p><strong>Ways to start with less money:</strong></p>
+                        <ul>
+                            <li>Use the 3-day free trial to set up before paying</li>
+                            <li>Use free themes instead of paid ($0 vs $140-350)</li>
+                            <li>Focus on free traffic (social media, SEO) instead of paid ads</li>
+                            <li>Start with dropshipping (no inventory costs)</li>
+                            <li>Use free apps instead of paid ones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Is there a free plan or free trial?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Shopify offers a 3-day free trial (no credit card required).</strong></p>
+                        <p>During the trial you get:</p>
+                        <ul>
+                            <li>Full access to all Basic plan features</li>
+                            <li>Ability to set up your store completely</li>
+                            <li>Test all features and apps</li>
+                            <li>No credit card needed to start</li>
+                        </ul>
+                        <p><strong>After the trial:</strong> You'll need to choose a paid plan to keep your store live and start selling.</p>
+                        <p><strong>Pro tip:</strong> Use the free trial to fully set up your store, add products, configure settings, and test checkout. When the trial ends, you're ready to launch immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETUP SECTION -->
+        <div class="faq-section" data-category="setup">
+            <h2>🚀 Setup & Getting Started</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How long does it take to set up a Shopify store?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Basic setup: 30 minutes to 2 hours</strong></p>
+                        <p><strong>Complete setup (ready to sell): 1-3 days</strong></p>
+                        <p><strong>Timeline breakdown:</strong></p>
+                        <ul>
+                            <li><strong>Day 1 (2-4 hours):</strong> Sign up, choose theme, customize design, set up payment methods</li>
+                            <li><strong>Day 2 (4-6 hours):</strong> Add 10-15 products with photos and descriptions, set up shipping rates</li>
+                            <li><strong>Day 3 (2-3 hours):</strong> Add legal pages, test checkout, install essential apps, final review</li>
+                        </ul>
+                        <p><strong>You don't need to be perfect before launching.</strong> Most successful stores launch with 10-15 products and improve as they grow.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Do I need technical skills or coding knowledge?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>No coding or technical skills required!</strong></p>
+                        <p>Shopify is designed for non-technical users. Everything is drag-and-drop or fill-in-the-blank.</p>
+                        <p><strong>You can do without any code:</strong></p>
+                        <ul>
+                            <li>Choose and customize themes (point and click)</li>
+                            <li>Add products (just upload photos and fill in details)</li>
+                            <li>Set up payments (connect your bank account)</li>
+                            <li>Configure shipping (use templates or create custom rates)</li>
+                            <li>Install apps (one-click installation)</li>
+                            <li>Create discount codes (automated wizard)</li>
+                        </ul>
+                        <p><strong>When you might want coding:</strong> Advanced customizations like custom checkout pages or unique features. But even then, you can hire a Shopify expert for $50-500.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What do I need to start a Shopify store?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Essential requirements:</strong></p>
+                        <ul>
+                            <li><strong>Business/Personal Email:</strong> For your Shopify account</li>
+                            <li><strong>Business Name & Niche:</strong> What you'll sell and to whom</li>
+                            <li><strong>Bank Account:</strong> To receive payments</li>
+                            <li><strong>Products or Suppliers:</strong> What you'll sell (your own products or dropshipping suppliers)</li>
+                            <li><strong>Product Photos:</strong> High-quality images (minimum 5 per product)</li>
+                            <li><strong>Payment Method:</strong> To pay for Shopify subscription</li>
+                            <li><strong>Domain Name:</strong> yourstore.com (optional but recommended - $15/year)</li>
+                        </ul>
+                        <p><strong>Helpful but not required:</strong></p>
+                        <ul>
+                            <li>Logo (you can create one free on Canva)</li>
+                            <li>Business license (depends on your location - check local laws)</li>
+                            <li>EIN/Tax ID (for U.S. - get free from IRS)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURES SECTION -->
+        <div class="faq-section" data-category="features">
+            <h2>⚙️ Features & Capabilities</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Is Shopify better than WooCommerce, BigCommerce, or Wix?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Short answer: For most people, yes - Shopify is the best choice.</strong></p>
+                        <p><strong>Shopify vs WooCommerce:</strong></p>
+                        <ul>
+                            <li>✅ <strong>Shopify wins on:</strong> Ease of use, hosting included, automatic updates, 24/7 support, security</li>
+                            <li>✅ <strong>WooCommerce wins on:</strong> Total control, cheaper (if you're technical), unlimited customization</li>
+                            <li><strong>Choose Shopify if:</strong> You want easy, all-in-one solution</li>
+                            <li><strong>Choose WooCommerce if:</strong> You love WordPress and want complete control</li>
+                        </ul>
+                        <p><strong>Shopify vs BigCommerce:</strong></p>
+                        <ul>
+                            <li>✅ <strong>Shopify wins on:</strong> Easier to use, better app ecosystem, larger community, better themes</li>
+                            <li>✅ <strong>BigCommerce wins on:</strong> More built-in features, no transaction fees, better for large catalogs</li>
+                            <li><strong>Choose Shopify if:</strong> You want the easiest experience with best support</li>
+                            <li><strong>Choose BigCommerce if:</strong> You have 500+ products or doing $50K+/month</li>
+                        </ul>
+                        <p><strong>Shopify vs Wix:</strong></p>
+                        <ul>
+                            <li>✅ <strong>Shopify wins on:</strong> E-commerce features, scalability, payment options, shipping tools</li>
+                            <li>✅ <strong>Wix wins on:</strong> Website builder (better for blogs/portfolios)</li>
+                            <li><strong>Choose Shopify if:</strong> Your main goal is selling products online</li>
+                            <li><strong>Choose Wix if:</strong> You need a website with a small shop (under 20 products)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I sell on multiple channels (Amazon, eBay, Facebook)?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Yes! Shopify supports multi-channel selling.</strong></p>
+                        <p><strong>Integrated selling channels:</strong></p>
+                        <ul>
+                            <li><strong>Facebook & Instagram:</strong> Sell directly through posts and stories (free app)</li>
+                            <li><strong>Amazon:</strong> Sync your products to Amazon marketplace</li>
+                            <li><strong>eBay:</strong> List Shopify products on eBay</li>
+                            <li><strong>Google Shopping:</strong> Appear in Google search results</li>
+                            <li><strong>Pinterest:</strong> Product pins with buy button</li>
+                            <li><strong>TikTok:</strong> TikTok Shopping integration</li>
+                            <li><strong>Walmart:</strong> Sell on Walmart.com</li>
+                        </ul>
+                        <p><strong>Benefits:</strong> Manage inventory in one place. When someone buys on Amazon, your Shopify inventory automatically updates. No overselling!</p>
+                        <p><strong>Best practice:</strong> Start with Shopify store + Facebook/Instagram. Add other channels once you have consistent sales.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Does Shopify provide hosting and security?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Yes! Hosting and security are included in your monthly fee.</strong></p>
+                        <p><strong>What's included:</strong></p>
+                        <ul>
+                            <li><strong>Hosting:</strong> Your store is hosted on Shopify's servers (no separate hosting needed)</li>
+                            <li><strong>SSL Certificate:</strong> Free SSL (the padlock in browser) - builds customer trust</li>
+                            <li><strong>PCI Compliance:</strong> Level 1 PCI DSS compliant (highest security for credit cards)</li>
+                            <li><strong>99.99% Uptime:</strong> Your store is almost always online</li>
+                            <li><strong>Unlimited Bandwidth:</strong> No extra charges even if you get millions of visitors</li>
+                            <li><strong>Automatic Updates:</strong> Security patches applied automatically</li>
+                            <li><strong>DDoS Protection:</strong> Protected against attacks</li>
+                            <li><strong>Automatic Backups:</strong> Your data is backed up regularly</li>
+                        </ul>
+                        <p><strong>This is HUGE:</strong> With WooCommerce or self-hosted solutions, you pay $5-50/month for hosting, manage security yourself, and deal with downtime. Shopify handles all of it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SELLING SECTION -->
+        <div class="faq-section" data-category="selling">
+            <h2>💼 Selling & Operations</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I dropship with Shopify?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Yes! Shopify is the best platform for dropshipping.</strong></p>
+                        <p><strong>Why Shopify is perfect for dropshipping:</strong></p>
+                        <ul>
+                            <li>Easy integration with suppliers (Oberlo, DSers, Spocket)</li>
+                            <li>Automatic order fulfillment</li>
+                            <li>No inventory needed</li>
+                            <li>Start with minimal investment ($39 + ads)</li>
+                            <li>One-click product imports from AliExpress</li>
+                        </ul>
+                        <p><strong>Popular dropshipping apps:</strong></p>
+                        <ul>
+                            <li><strong>DSers:</strong> Best for AliExpress dropshipping (free)</li>
+                            <li><strong>Spocket:</strong> US/EU suppliers with faster shipping ($0-40/month)</li>
+                            <li><strong>Modalyst:</strong> Premium brands and suppliers ($0-90/month)</li>
+                            <li><strong>Printful:</strong> Print-on-demand for t-shirts, mugs, etc. (free)</li>
+                        </ul>
+                        <p><strong>How it works:</strong> Customer orders → Payment goes to you → You order from supplier (they ship to customer) → You keep the profit</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I get paid and receive money?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Shopify Payments (recommended):</strong></p>
+                        <ul>
+                            <li>Built into Shopify (no setup needed)</li>
+                            <li>Funds deposited to your bank account automatically</li>
+                            <li>Payout schedule: Daily, weekly, or monthly (you choose)</li>
+                            <li>No transaction fees (just credit card processing: 2.9% + 30¢)</li>
+                            <li>Supports all major credit cards, Apple Pay, Google Pay</li>
+                        </ul>
+                        <p><strong>Alternative payment options:</strong></p>
+                        <ul>
+                            <li><strong>PayPal:</strong> Funds go to PayPal account (2% Shopify fee + PayPal fees)</li>
+                            <li><strong>Stripe:</strong> Similar to Shopify Payments (2% Shopify fee + Stripe fees)</li>
+                            <li><strong>Other gateways:</strong> Authorize.net, Square, etc.</li>
+                        </ul>
+                        <p><strong>Typical timeline:</strong></p>
+                        <ul>
+                            <li>Customer orders → Payment received immediately</li>
+                            <li>Shopify holds funds for 1-3 days (fraud protection)</li>
+                            <li>Money deposited to your bank account</li>
+                            <li>Bank processes in 1-2 business days</li>
+                            <li><strong>Total time: 2-5 days from sale to bank account</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What products sell best on Shopify?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Top-selling product categories in 2025:</strong></p>
+                        <ul>
+                            <li><strong>Fashion & Apparel:</strong> Clothing, jewelry, accessories - evergreen demand</li>
+                            <li><strong>Health & Wellness:</strong> Supplements, fitness gear, self-care - growing 25% YoY</li>
+                            <li><strong>Home & Garden:</strong> Decor, kitchen gadgets, organization - huge market</li>
+                            <li><strong>Beauty & Skincare:</strong> Cosmetics, skincare, hair products - loyal customers</li>
+                            <li><strong>Electronics & Accessories:</strong> Phone cases, chargers, smart home - high margins</li>
+                            <li><strong>Pet Products:</strong> Toys, accessories, supplies - $123B market</li>
+                            <li><strong>Sustainable/Eco Products:</strong> Reusable items, organic products - trending up</li>
+                        </ul>
+                        <p><strong>Characteristics of best-selling products:</strong></p>
+                        <ul>
+                            <li>Solves a specific problem</li>
+                            <li>Priced between $20-80 (sweet spot for impulse buying)</li>
+                            <li>Visually appealing (photographs well)</li>
+                            <li>Not easily found in local stores</li>
+                            <li>Markup potential of 2-3x cost</li>
+                            <li>Lightweight (lower shipping costs)</li>
+                        </ul>
+                        <p><strong>Pro tip:</strong> Choose a niche you're passionate about. Your enthusiasm will show in your marketing and connect with customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h3>Still Have Questions?</h3>
+            <p>Start your free trial and explore Shopify yourself</p>
+            <a href="https://shopify.pxf.io/yourafflink" class="cta-button">Start Free Trial →</a>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">3 days free • No credit card required</p>
+        </div>
+
+        <div style="background: #f0f9f6; border-left: 5px solid #00875A; padding: 30px; border-radius: 8px; margin-top: 40px;">
+            <h3 style="color: #004C3F; margin-bottom: 15px;">📚 Helpful Resources</h3>
+            <ul style="line-height: 2;">
+                <li><a href="guide-how-to-start.html" style="color: #5C6AC4;">Complete Shopify Setup Guide</a></li>
+                <li><a href="guide-pricing.html" style="color: #5C6AC4;">Detailed Pricing Breakdown</a></li>
+                <li><a href="comparison.html" style="color: #5C6AC4;">Shopify vs Competitors</a></li>
+                <li><a href="calculator.html" style="color: #5C6AC4;">Profit Calculator</a></li>
+                <li><a href="case-studies.html" style="color: #5C6AC4;">Success Stories</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Toggle current FAQ
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        function searchFAQ() {
+            const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        }
+
+        function filterCategory(category) {
+            // Update active button
+            document.querySelectorAll('.faq-category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter sections
+            const sections = document.querySelectorAll('.faq-section');
+            sections.forEach(section => {
+                if (category === 'all' || section.dataset.category === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
