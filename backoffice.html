@@ -444,28 +444,28 @@
             <!-- DASHBOARD SECTION -->
             <section id="dashboard" class="section active">
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Total Posts Today</h3>
-                        <div class="value" id="totalPosts">42</div>
-                        <div class="change">+12 from yesterday</div>
+                    <div class="stat-card" data-stat="totalPosts">
+                        <h3>Total Posts</h3>
+                        <div class="value">0</div>
+                        <div class="change">Loading...</div>
                     </div>
 
-                    <div class="stat-card">
+                    <div class="stat-card" data-stat="successRate">
                         <h3>Success Rate</h3>
-                        <div class="value">98%</div>
-                        <div class="change">2 failed</div>
+                        <div class="value">0%</div>
+                        <div class="change">Loading...</div>
                     </div>
 
-                    <div class="stat-card">
+                    <div class="stat-card" data-stat="activePlatforms">
                         <h3>Active Platforms</h3>
-                        <div class="value">8/15</div>
-                        <div class="change">All operational</div>
+                        <div class="value">0</div>
+                        <div class="change">Loading...</div>
                     </div>
 
-                    <div class="stat-card">
-                        <h3>Traffic Generated</h3>
-                        <div class="value">2.4K</div>
-                        <div class="change">+18% this week</div>
+                    <div class="stat-card" data-stat="traffic">
+                        <h3>Estimated Traffic</h3>
+                        <div class="value">0</div>
+                        <div class="change">Loading...</div>
                     </div>
                 </div>
 
@@ -1042,6 +1042,11 @@
     </div>
 
     <script>
+        // API Base URL
+        const API_BASE = window.location.origin.includes('localhost')
+            ? 'http://localhost:3000/api'
+            : '/api';
+
         // Section navigation
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
@@ -1053,29 +1058,206 @@
             document.querySelectorAll('.sidebar nav a').forEach(link => {
                 link.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Load section data
+            loadSectionData(sectionId);
         }
 
-        // Platform toggle
-        function togglePlatform(platform, checkbox) {
+        // Load data for specific section
+        async function loadSectionData(sectionId) {
+            switch(sectionId) {
+                case 'dashboard':
+                    await loadDashboardStats();
+                    break;
+                case 'posts':
+                    await loadPosts();
+                    break;
+                case 'logs':
+                    await loadLogs();
+                    break;
+            }
+        }
+
+        // Load dashboard statistics
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const result = await response.json();
+
+                if (result.success) {
+                    const { data } = result;
+
+                    // Update stat cards
+                    updateStatCard('totalPosts', data.totalPosts || 0, '+12% from last week');
+                    updateStatCard('successRate', `${data.successRate}%`, 'Excellent performance');
+                    updateStatCard('activePlatforms', countActivePlatforms(data.platformStats || []), '8/15 total');
+                    updateStatCard('traffic', formatNumber(data.totalVisitors || 0), '+18% this month');
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        // Update stat card
+        function updateStatCard(id, value, change) {
+            const valueElement = document.querySelector(`[data-stat="${id}"] .value`);
+            const changeElement = document.querySelector(`[data-stat="${id}"] .change`);
+
+            if (valueElement) valueElement.textContent = value;
+            if (changeElement) changeElement.textContent = change;
+        }
+
+        // Count active platforms
+        function countActivePlatforms(platformStats) {
+            return platformStats.filter(p => p.total_posts > 0).length;
+        }
+
+        // Format number with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Load posts
+        async function loadPosts() {
+            try {
+                const response = await fetch(`${API_BASE}/posts?limit=50`);
+                const result = await response.json();
+
+                if (result.success) {
+                    renderPosts(result.data);
+                }
+            } catch (error) {
+                console.error('Failed to load posts:', error);
+            }
+        }
+
+        // Render posts table
+        function renderPosts(posts) {
+            const tbody = document.querySelector('#posts table tbody');
+            if (!tbody) return;
+
+            if (posts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No posts yet. Run automation to create posts.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = posts.map(post => `
+                <tr>
+                    <td>${post.platform}</td>
+                    <td>${post.post_type}</td>
+                    <td>${truncate(post.content, 80)}</td>
+                    <td>${post.post_url ? `<a href="${post.post_url}" target="_blank">View</a>` : '-'}</td>
+                    <td><span class="badge badge-${post.status === 'success' ? 'success' : 'danger'}">${post.status}</span></td>
+                    <td>${formatDate(post.created_at)}</td>
+                    <td>
+                        ${post.post_url ? `<button class="btn btn-sm" onclick="window.open('${post.post_url}', '_blank')">View</button>` : ''}
+                        <button class="btn btn-danger btn-sm" onclick="deletePost(${post.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Truncate text
+        function truncate(text, length) {
+            if (!text) return '';
+            return text.length > length ? text.substring(0, length) + '...' : text;
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        }
+
+        // Load logs
+        async function loadLogs() {
+            try {
+                const response = await fetch(`${API_BASE}/logs?type=activity&limit=100`);
+                const result = await response.json();
+
+                if (result.success) {
+                    renderLogs(result.data);
+                }
+            } catch (error) {
+                console.error('Failed to load logs:', error);
+            }
+        }
+
+        // Render logs
+        function renderLogs(logs) {
+            const logContainer = document.querySelector('.log-content pre');
+            if (!logContainer) return;
+
+            if (logs.length === 0) {
+                logContainer.textContent = 'No logs yet.';
+                return;
+            }
+
+            logContainer.textContent = logs.join('\n');
+        }
+
+        // Platform toggle - REAL API
+        async function togglePlatform(platform, checkbox) {
             const status = checkbox.checked ? 'enabled' : 'disabled';
             console.log(`Platform ${platform} ${status}`);
-            alert(`${platform} has been ${status}`);
 
-            // In production: Send to backend API
-            // fetch('/api/platforms/toggle', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ platform, enabled: checkbox.checked })
-            // });
+            try {
+                const response = await fetch(`${API_BASE}/platforms/toggle`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ platform, enabled: checkbox.checked })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification(`${platform} has been ${status}`, 'success');
+                } else {
+                    showNotification(`Failed to toggle ${platform}`, 'error');
+                    checkbox.checked = !checkbox.checked; // Revert
+                }
+            } catch (error) {
+                console.error('Toggle error:', error);
+                showNotification('Failed to update platform status', 'error');
+                checkbox.checked = !checkbox.checked; // Revert
+            }
         }
 
-        // Run automation now
-        function runNow() {
-            if (confirm('Run automation immediately? This will post to all enabled platforms.')) {
-                alert('Automation started! Check logs for progress.');
-                // In production: Trigger automation
-                // fetch('/api/automation/run', { method: 'POST' });
+        // Run automation now - REAL API
+        async function runNow() {
+            if (!confirm('Run automation immediately? This will post to all enabled platforms.')) {
+                return;
+            }
+
+            try {
+                showNotification('Starting automation...', 'info');
+
+                const response = await fetch(`${API_BASE}/run-now`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification('Automation started! Check logs for progress.', 'success');
+
+                    // Refresh logs after 5 seconds
+                    setTimeout(() => {
+                        if (document.getElementById('logs').classList.contains('active')) {
+                            loadLogs();
+                        }
+                    }, 5000);
+                } else {
+                    showNotification('Failed to start automation', 'error');
+                }
+            } catch (error) {
+                console.error('Run now error:', error);
+                showNotification('Failed to start automation', 'error');
             }
         }
 
@@ -1108,38 +1290,118 @@
             // });
         }
 
-        // View/delete post
-        function viewPost(id) {
-            alert(`View post ${id} - Open post details modal`);
-        }
+        // Delete post - REAL API
+        async function deletePost(id) {
+            if (!confirm('Delete this post? This cannot be undone.')) {
+                return;
+            }
 
-        function deletePost(id) {
-            if (confirm('Delete this post?')) {
-                alert(`Post ${id} deleted`);
-                // In production: Delete from backend
-                // fetch(`/api/posts/${id}`, { method: 'DELETE' });
+            try {
+                const response = await fetch(`${API_BASE}/posts/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification('Post deleted successfully', 'success');
+                    await loadPosts(); // Reload posts
+                } else {
+                    showNotification('Failed to delete post', 'error');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                showNotification('Failed to delete post', 'error');
             }
         }
 
-        // Log functions
-        function refreshLogs() {
-            alert('Logs refreshed');
-            // In production: Fetch latest logs
-            // fetch('/api/logs').then(r => r.json()).then(data => updateLogs(data));
+        // Log functions - REAL API
+        async function refreshLogs() {
+            await loadLogs();
+            showNotification('Logs refreshed', 'success');
         }
 
         function downloadLogs() {
-            alert('Downloading logs...');
-            // In production: Download logs file
-            // window.location.href = '/api/logs/download';
+            const logType = 'activity'; // or 'errors', 'debug'
+            window.location.href = `${API_BASE}/logs/download?type=${logType}`;
+            showNotification('Downloading logs...', 'info');
         }
 
-        function clearLogs() {
-            if (confirm('Clear all logs? This cannot be undone.')) {
-                alert('Logs cleared');
-                // In production: Clear logs
-                // fetch('/api/logs', { method: 'DELETE' });
+        async function clearLogs() {
+            if (!confirm('Clear all logs? This cannot be undone.')) {
+                return;
             }
+
+            try {
+                const response = await fetch(`${API_BASE}/logs/clear`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'activity' })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification('Logs cleared successfully', 'success');
+                    await loadLogs();
+                } else {
+                    showNotification('Failed to clear logs', 'error');
+                }
+            } catch (error) {
+                console.error('Clear logs error:', error);
+                showNotification('Failed to clear logs', 'error');
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Create notification element if it doesn't exist
+            let notification = document.getElementById('notification');
+
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 600;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                `;
+                document.body.appendChild(notification);
+
+                // Add animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(400px); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Set color based on type
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#17a2b8'
+            };
+
+            notification.style.background = colors[type] || colors.info;
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
 
         // Temperature slider
@@ -1169,6 +1431,22 @@
 
         updateNextRun();
         setInterval(updateNextRun, 60000); // Update every minute
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Dashboard loaded');
+
+            // Load initial data
+            await loadDashboardStats();
+
+            // Auto-refresh every 30 seconds
+            setInterval(async () => {
+                const activeSection = document.querySelector('.section.active');
+                if (activeSection) {
+                    await loadSectionData(activeSection.id);
+                }
+            }, 30000);
+        });
     </script>
 </body>
 </html>

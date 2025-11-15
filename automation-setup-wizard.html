@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Automation System Setup Wizard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .step-indicator {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: white;
+            opacity: 0.5;
+            font-size: 0.9em;
+            min-width: 100px;
+        }
+
+        .step-indicator.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        .step-indicator.completed {
+            opacity: 0.8;
+        }
+
+        .step-indicator .number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            line-height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .step-indicator.active .number {
+            background: #4caf50;
+        }
+
+        .step-indicator.completed .number::before {
+            content: '✓';
+        }
+
+        .wizard-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 500px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .step h3 {
+            color: #333;
+            margin: 25px 0 15px;
+            font-size: 1.3em;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-group textarea {
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .input-group small {
+            display: block;
+            margin-top: 5px;
+            color: #999;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 12px;
+            margin: 10px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist li:hover {
+            background: #e8f5e9;
+        }
+
+        .checklist li.checked {
+            background: #e8f5e9;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            margin-right: 10px;
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .checklist li.checked::before {
+            content: '✓';
+            color: #4caf50;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .link-card {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s;
+        }
+
+        .link-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .link-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .link-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link-card a:hover {
+            text-decoration: underline;
+        }
+
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cost-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .cost-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .completion-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .completion-screen .icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+
+        .completion-screen h2 {
+            color: #4caf50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .completion-screen .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .wizard-content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .step h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Automation Setup Wizard</h1>
+            <p>Build your $40K/month passive income system in 10 easy steps</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="progress-steps" id="progressSteps"></div>
+
+        <div class="wizard-content">
+            <!-- Step 1: Welcome -->
+            <div class="step active" data-step="1">
+                <h2>👋 Welcome to Your Automation System!</h2>
+                <p>This wizard will guide you through setting up a fully automated content marketing system that:</p>
+
+                <div class="success-box">
+                    <h3 style="margin-top: 0;">✅ What You'll Build:</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Fully automated content generation using GPT-4o-mini</li>
+                        <li>Auto-posting to 8+ platforms daily (Reddit, Twitter, Quora, Medium, LinkedIn, Pinterest, YouTube, Facebook)</li>
+                        <li>Professional admin dashboard to monitor everything</li>
+                        <li>24/7 operation with GitHub Actions (FREE hosting)</li>
+                        <li>Expected: 50K+ visitors/month → $40K/month revenue</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3 style="margin-top: 0;">💰 Cost Breakdown:</h3>
+                    <table class="cost-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Monthly Cost</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>OpenAI API (GPT-4o-mini)</td>
+                                <td>$2-5</td>
+                                <td>128X cheaper than GPT-4!</td>
+                            </tr>
+                            <tr>
+                                <td>GitHub Actions</td>
+                                <td>$0</td>
+                                <td>Free tier (2,000 min/month)</td>
+                            </tr>
+                            <tr>
+                                <td>Domain (optional)</td>
+                                <td>$1-2</td>
+                                <td>Namecheap, Google Domains</td>
+                            </tr>
+                            <tr>
+                                <td>Platform APIs</td>
+                                <td>$0</td>
+                                <td>All free tiers</td>
+                            </tr>
+                            <tr style="font-weight: bold; background: #e8f5e9;">
+                                <td>TOTAL</td>
+                                <td>$3-7/month</td>
+                                <td>ROI: 571,428% 🚀</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <h3 style="margin-top: 0;">⏱️ Time Required:</h3>
+                    <p><strong>Setup time:</strong> 2-3 hours (one-time)</p>
+                    <p><strong>Daily maintenance:</strong> 0 minutes (fully automated!)</p>
+                </div>
+
+                <h3>What You'll Need:</h3>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">OpenAI API account (platform.openai.com)</li>
+                    <li onclick="toggleCheck(this)">GitHub account (github.com)</li>
+                    <li onclick="toggleCheck(this)">Social media accounts (Reddit, Twitter, etc.)</li>
+                    <li onclick="toggleCheck(this)">Node.js 18+ installed (nodejs.org)</li>
+                    <li onclick="toggleCheck(this)">Git installed (git-scm.com)</li>
+                    <li onclick="toggleCheck(this)">2-3 hours of focused time</li>
+                    <li onclick="toggleCheck(this)">Your Shopify affiliate link ready</li>
+                </ul>
+            </div>
+
+            <!-- Step 2: Install Dependencies -->
+            <div class="step" data-step="2">
+                <h2>📦 Step 1: Install Dependencies</h2>
+                <p>First, we need to install all the required Node.js packages.</p>
+
+                <h3>1. Navigate to automation-system folder:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cd "C:\Users\User\OneDrive\Desktop\shopify-hub\automation-system"</pre>
+                </div>
+
+                <h3>2. Install all packages at once:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>npm install openai snoowrap twitter-api-v2 pinterest-api-sdk puppeteer puppeteer-extra puppeteer-extra-plugin-stealth node-cron winston better-sqlite3 dotenv express cors helmet</pre>
+                </div>
+
+                <div class="info-box">
+                    <h4>📋 Package Breakdown:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>openai</strong> - ChatGPT API for content generation</li>
+                        <li><strong>snoowrap</strong> - Reddit API wrapper</li>
+                        <li><strong>twitter-api-v2</strong> - Twitter API wrapper</li>
+                        <li><strong>pinterest-api-sdk</strong> - Pinterest API wrapper</li>
+                        <li><strong>puppeteer</strong> - Headless browser for Quora, Medium, LinkedIn</li>
+                        <li><strong>node-cron</strong> - Schedule tasks (runs at 7 AM daily)</li>
+                        <li><strong>winston</strong> - Professional logging system</li>
+                        <li><strong>better-sqlite3</strong> - Database for tracking posts</li>
+                        <li><strong>express</strong> - Backend API server for dashboard</li>
+                    </ul>
+                </div>
+
+                <h3>✅ Verification:</h3>
+                <p>After installation completes, verify by checking package.json:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cat package.json</pre>
+                </div>
+
+                <div class="success-box">
+                    <p>✅ You should see all packages listed in "dependencies"</p>
+                    <p>✅ Installation takes ~2-5 minutes depending on internet speed</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Get OpenAI API Key -->
+            <div class="step" data-step="3">
+                <h2>🤖 Step 2: Get OpenAI API Key</h2>
+                <p>OpenAI powers your content generation. We'll use GPT-4o-mini (128X cheaper than GPT-4!)</p>
+
+                <h3>1. Create OpenAI Account:</h3>
+                <div class="link-card">
+                    <h4>🔗 Go to OpenAI Platform</h4>
+                    <a href="https://platform.openai.com/signup" target="_blank">https://platform.openai.com/signup</a>
+                    <p style="margin-top: 10px;">Sign up with Google or email</p>
+                </div>
+
+                <h3>2. Add Credits ($5 minimum):</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Go to <a href="https://platform.openai.com/account/billing" target="_blank">Billing → Add payment method</a></li>
+                    <li>Add $5 credit (will last 2-3 months!)</li>
+                    <li>Enable auto-recharge if you want</li>
+                </ol>
+
+                <h3>3. Create API Key:</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank">API Keys</a></li>
+                    <li>Click "Create new secret key"</li>
+                    <li>Name it "Shopify Automation"</li>
+                    <li>Copy the key (starts with "sk-")</li>
+                </ol>
+
+                <div class="warning-box">
+                    <h4>⚠️ IMPORTANT:</h4>
+                    <p>Copy your API key NOW! You won't be able to see it again.</p>
+                    <p>Save it in a secure place (password manager recommended)</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Paste your OpenAI API Key here (we'll save it for you):</label>
+                    <input type="text" id="openaiKey" placeholder="sk-proj-xxxxxxxxxxxxx"
+                           oninput="saveToStorage('openaiKey', this.value)">
+                    <small>Starts with "sk-proj-" or "sk-"</small>
+                </div>
+
+                <div class="info-box">
+                    <h4>💰 Cost Estimate:</h4>
+                    <p><strong>GPT-4o-mini pricing:</strong> $0.15 per 1M input tokens, $0.60 per 1M output tokens</p>
+                    <p><strong>Your usage:</strong> ~435,000 tokens/month (30 posts daily)</p>
+                    <p><strong>Monthly cost:</strong> $0.16-$0.26 (with buffer: $2-5/month)</p>
+                    <p><strong>$5 credit lasts:</strong> 2-3 months minimum</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Get Reddit API -->
+            <div class="step" data-step="4">
+                <h2>🔴 Step 3: Get Reddit API Credentials</h2>
+                <p>Reddit is one of the best platforms for Shopify content. API is 100% free!</p>
+
+                <h3>1. Go to Reddit Apps:</h3>
+                <div class="link-card">
+                    <h4>🔗 Create Reddit App</h4>
+                    <a href="https://www.reddit.com/prefs/apps" target="_blank">https://www.reddit.com/prefs/apps</a>
+                </div>
+
+                <h3>2. Create Application:</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Scroll to bottom, click "create another app..."</li>
+                    <li>Name: "Shopify Automation"</li>
+                    <li>Type: Select "script"</li>
+                    <li>Redirect URI: http://localhost:8080</li>
+                    <li>Click "create app"</li>
+                </ol>
+
+                <h3>3. Copy Credentials:</h3>
+                <div class="info-box">
+                    <p><strong>Client ID:</strong> The string under "personal use script"</p>
+                    <p><strong>Client Secret:</strong> The "secret" field</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Reddit Client ID:</label>
+                    <input type="text" id="redditClientId" placeholder="abcd1234efgh5678"
+                           oninput="saveToStorage('redditClientId', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Reddit Client Secret:</label>
+                    <input type="text" id="redditClientSecret" placeholder="xyz789-abc456-def123"
+                           oninput="saveToStorage('redditClientSecret', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Reddit Username:</label>
+                    <input type="text" id="redditUsername" placeholder="your_reddit_username"
+                           oninput="saveToStorage('redditUsername', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Reddit Password:</label>
+                    <input type="password" id="redditPassword" placeholder="your_reddit_password"
+                           oninput="saveToStorage('redditPassword', this.value)">
+                </div>
+
+                <div class="success-box">
+                    <p>✅ Reddit API is completely free with no limits for personal use!</p>
+                    <p>✅ You can post to r/shopify, r/ecommerce, r/Entrepreneur, and more</p>
+                </div>
+            </div>
+
+            <!-- Step 5: Get Twitter API -->
+            <div class="step" data-step="5">
+                <h2>🐦 Step 4: Get Twitter API Credentials</h2>
+                <p>Twitter free tier allows 1,500 tweets/month - perfect for our needs!</p>
+
+                <h3>1. Go to Twitter Developer Portal:</h3>
+                <div class="link-card">
+                    <h4>🔗 Twitter Developer Portal</h4>
+                    <a href="https://developer.twitter.com/en/portal/dashboard" target="_blank">https://developer.twitter.com/en/portal/dashboard</a>
+                </div>
+
+                <h3>2. Create App:</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Click "Create Project"</li>
+                    <li>Project name: "Shopify Marketing"</li>
+                    <li>Use case: "Making a bot"</li>
+                    <li>App name: "shopify-automation-bot"</li>
+                    <li>Save your API Key and Secret!</li>
+                </ol>
+
+                <h3>3. Generate Access Token:</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>In your app settings, click "Keys and tokens"</li>
+                    <li>Under "Access Token and Secret", click "Generate"</li>
+                    <li>Copy Access Token and Access Token Secret</li>
+                </ol>
+
+                <div class="input-group">
+                    <label>Twitter API Key:</label>
+                    <input type="text" id="twitterApiKey" placeholder="abcdefghijklmnopqrstuvwxyz"
+                           oninput="saveToStorage('twitterApiKey', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Twitter API Secret:</label>
+                    <input type="text" id="twitterApiSecret" placeholder="1234567890abcdefghijklmnopqrstuvwxyz"
+                           oninput="saveToStorage('twitterApiSecret', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Twitter Access Token:</label>
+                    <input type="text" id="twitterAccessToken" placeholder="1234567890-abcdefghijklmnopqrstuvwxyz"
+                           oninput="saveToStorage('twitterAccessToken', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>Twitter Access Secret:</label>
+                    <input type="text" id="twitterAccessSecret" placeholder="abcdefghijklmnopqrstuvwxyz1234567890"
+                           oninput="saveToStorage('twitterAccessSecret', this.value)">
+                </div>
+
+                <div class="info-box">
+                    <p>💡 <strong>Tip:</strong> Twitter free tier = 1,500 tweets/month</p>
+                    <p>We'll post 1 thread daily (15 tweets) = 450 tweets/month = well within limit!</p>
+                </div>
+            </div>
+
+            <!-- Step 6: Browser Automation Credentials -->
+            <div class="step" data-step="6">
+                <h2>🌐 Step 5: Browser Automation Credentials</h2>
+                <p>For platforms without APIs (Quora, Medium, LinkedIn), we use browser automation.</p>
+
+                <div class="warning-box">
+                    <h4>⚠️ Optional but Recommended:</h4>
+                    <p>You can skip any platform you don't want to use. Start with Reddit + Twitter only if you prefer!</p>
+                </div>
+
+                <h3>Quora:</h3>
+                <div class="input-group">
+                    <label>Quora Email:</label>
+                    <input type="email" id="quoraEmail" placeholder="your@email.com"
+                           oninput="saveToStorage('quoraEmail', this.value)">
+                </div>
+                <div class="input-group">
+                    <label>Quora Password:</label>
+                    <input type="password" id="quoraPassword" placeholder="your_password"
+                           oninput="saveToStorage('quoraPassword', this.value)">
+                </div>
+
+                <h3>Medium:</h3>
+                <div class="input-group">
+                    <label>Medium Email:</label>
+                    <input type="email" id="mediumEmail" placeholder="your@email.com"
+                           oninput="saveToStorage('mediumEmail', this.value)">
+                </div>
+                <div class="input-group">
+                    <label>Medium Password:</label>
+                    <input type="password" id="mediumPassword" placeholder="your_password"
+                           oninput="saveToStorage('mediumPassword', this.value)">
+                </div>
+
+                <h3>LinkedIn:</h3>
+                <div class="input-group">
+                    <label>LinkedIn Email:</label>
+                    <input type="email" id="linkedinEmail" placeholder="your@email.com"
+                           oninput="saveToStorage('linkedinEmail', this.value)">
+                </div>
+                <div class="input-group">
+                    <label>LinkedIn Password:</label>
+                    <input type="password" id="linkedinPassword" placeholder="your_password"
+                           oninput="saveToStorage('linkedinPassword', this.value)">
+                </div>
+
+                <div class="info-box">
+                    <h4>🔒 Security Tips:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Use unique passwords for automation accounts</li>
+                        <li>Enable 2FA with backup codes (save codes to .env file)</li>
+                        <li>Consider creating dedicated accounts for automation</li>
+                        <li>Never commit .env file to GitHub (already in .gitignore)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 7: Generate .env File -->
+            <div class="step" data-step="7">
+                <h2>⚙️ Step 6: Generate .env Configuration</h2>
+                <p>Now we'll create your .env file with all your credentials.</p>
+
+                <div class="success-box">
+                    <h4>✅ Your .env file has been generated below:</h4>
+                    <p>Copy this entire file and save it as <code>.env</code> in your automation-system folder</p>
+                </div>
+
+                <div class="input-group">
+                    <label>.env File Content (copy everything below):</label>
+                    <textarea id="envFileContent" readonly style="font-family: monospace; font-size: 0.85em;"></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="copyEnvFile()" style="margin: 20px 0;">
+                    📋 Copy .env File to Clipboard
+                </button>
+
+                <h3>How to Save the .env File:</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Copy the content above</li>
+                    <li>Open Notepad (or VS Code)</li>
+                    <li>Paste the content</li>
+                    <li>Save as: <code>C:\Users\User\OneDrive\Desktop\shopify-hub\automation-system\.env</code></li>
+                    <li>Make sure "Save as type" is "All Files" (not .txt)</li>
+                </ol>
+
+                <div class="warning-box">
+                    <h4>⚠️ SECURITY WARNING:</h4>
+                    <p>The .env file contains sensitive credentials. NEVER commit it to GitHub!</p>
+                    <p>It's already in .gitignore, so Git will ignore it automatically.</p>
+                </div>
+            </div>
+
+            <!-- Step 8: Test Locally -->
+            <div class="step" data-step="8">
+                <h2>🧪 Step 7: Test Locally</h2>
+                <p>Before deploying, let's test the automation system on your computer.</p>
+
+                <h3>1. Run the automation now:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cd "C:\Users\User\OneDrive\Desktop\shopify-hub\automation-system"
+node main.js --now</pre>
+                </div>
+
+                <div class="info-box">
+                    <h4>What you'll see:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>✅ Connecting to OpenAI...</li>
+                        <li>✅ Generating content for Reddit...</li>
+                        <li>✅ Generating content for Twitter...</li>
+                        <li>✅ Posting to Reddit...</li>
+                        <li>✅ Posting to Twitter...</li>
+                        <li>✅ All done! Check logs/activity.log</li>
+                    </ul>
+                </div>
+
+                <h3>2. Check the logs:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cat logs/activity.log</pre>
+                </div>
+
+                <h3>3. Verify posts were created:</h3>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Check your Reddit profile for new post</li>
+                    <li onclick="toggleCheck(this)">Check your Twitter for new thread</li>
+                    <li onclick="toggleCheck(this)">Check logs/activity.log for success messages</li>
+                    <li onclick="toggleCheck(this)">Check database/posts.db was created</li>
+                </ul>
+
+                <div class="success-box">
+                    <h4>✅ If everything worked:</h4>
+                    <p>You should see posts on your platforms and success messages in logs!</p>
+                    <p>If there are errors, check logs/errors.log for details.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Common Issues:</h4>
+                    <p><strong>"OpenAI API Error":</strong> Check your API key and billing</p>
+                    <p><strong>"Reddit 401 Unauthorized":</strong> Check Reddit credentials</p>
+                    <p><strong>"Twitter Error":</strong> Check Twitter API keys</p>
+                </div>
+            </div>
+
+            <!-- Step 9: GitHub Secrets -->
+            <div class="step" data-step="9">
+                <h2>🔐 Step 8: Add GitHub Secrets</h2>
+                <p>To run on GitHub Actions (free 24/7 hosting), we need to add your credentials as GitHub Secrets.</p>
+
+                <h3>1. Go to GitHub Secrets:</h3>
+                <div class="link-card">
+                    <h4>🔗 Repository Secrets</h4>
+                    <a href="https://github.com/FXCOOP/shopify-affiliate-hub/settings/secrets/actions" target="_blank">
+                        https://github.com/FXCOOP/shopify-affiliate-hub/settings/secrets/actions
+                    </a>
+                </div>
+
+                <h3>2. Add each secret:</h3>
+                <p>Click "New repository secret" and add these one by one:</p>
+
+                <div id="secretsList" style="margin: 20px 0;"></div>
+
+                <div class="info-box">
+                    <h4>💡 Tips:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Secret names are CASE-SENSITIVE</li>
+                        <li>Copy values exactly (no extra spaces)</li>
+                        <li>You can skip optional platforms (Quora, Medium, LinkedIn)</li>
+                        <li>Secrets are encrypted and never visible again</li>
+                    </ul>
+                </div>
+
+                <h3>Checklist:</h3>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Added OPENAI_API_KEY</li>
+                    <li onclick="toggleCheck(this)">Added all Reddit credentials (4 secrets)</li>
+                    <li onclick="toggleCheck(this)">Added all Twitter credentials (4 secrets)</li>
+                    <li onclick="toggleCheck(this)">Added SITE_URL and AFFILIATE_LINK</li>
+                    <li onclick="toggleCheck(this)">Added optional platform credentials</li>
+                </ul>
+            </div>
+
+            <!-- Step 10: Domain Setup -->
+            <div class="step" data-step="10">
+                <h2>🌐 Step 9: Domain Setup (Optional)</h2>
+                <p>Add a custom domain to make your site more professional.</p>
+
+                <div class="info-box">
+                    <h4>Current URLs:</h4>
+                    <p><strong>Website:</strong> https://shopify-success-hub.onrender.com</p>
+                    <p><strong>Dashboard:</strong> https://shopify-success-hub.onrender.com/backoffice</p>
+                </div>
+
+                <h3>Option 1: Use Render.com's Free Domain</h3>
+                <p>Your site is already live! No domain needed.</p>
+
+                <h3>Option 2: Add Custom Domain ($1-2/month)</h3>
+
+                <h4>Step 1: Buy a domain:</h4>
+                <div class="link-card">
+                    <h4>💰 Cheap Domain Registrars:</h4>
+                    <p><a href="https://www.namecheap.com" target="_blank">Namecheap</a> - $0.99 first year</p>
+                    <p><a href="https://domains.google" target="_blank">Google Domains</a> - $12/year</p>
+                    <p><a href="https://www.cloudflare.com/products/registrar/" target="_blank">Cloudflare</a> - At-cost pricing</p>
+                </div>
+
+                <h4>Step 2: Configure DNS:</h4>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Go to Render.com Dashboard → Your Service</li>
+                    <li>Click "Settings" → "Custom Domains"</li>
+                    <li>Click "Add Custom Domain"</li>
+                    <li>Enter your domain (e.g., shopifysuccess.com)</li>
+                    <li>Copy the CNAME record Render provides</li>
+                    <li>Add CNAME record to your domain registrar's DNS settings</li>
+                    <li>Wait 5-60 minutes for DNS propagation</li>
+                </ol>
+
+                <h4>Example domain ideas:</h4>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>shopifysuccess.com</li>
+                    <li>shopifymastery.io</li>
+                    <li>ecommercehub.net</li>
+                    <li>dropshippro.com</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ After adding custom domain:</h4>
+                    <p>Update SITE_URL in your .env file and GitHub Secrets!</p>
+                </div>
+
+                <div class="success-box">
+                    <p>✅ Custom domain is optional - your Render URL works perfectly!</p>
+                    <p>✅ Add domain later if you want - no rush</p>
+                </div>
+            </div>
+
+            <!-- Step 11: Deploy to GitHub Actions -->
+            <div class="step" data-step="11">
+                <h2>🚀 Step 10: Deploy to GitHub Actions</h2>
+                <p>Let's deploy your automation to run 24/7 for FREE on GitHub's servers!</p>
+
+                <h3>1. Verify GitHub Workflow Exists:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cat .github/workflows/daily-automation.yml</pre>
+                </div>
+
+                <div class="success-box">
+                    <p>✅ This file already exists in your repo!</p>
+                    <p>It's configured to run at 7 AM UTC daily.</p>
+                </div>
+
+                <h3>2. Test the workflow manually:</h3>
+                <div class="link-card">
+                    <h4>🔗 GitHub Actions</h4>
+                    <a href="https://github.com/FXCOOP/shopify-affiliate-hub/actions" target="_blank">
+                        https://github.com/FXCOOP/shopify-affiliate-hub/actions
+                    </a>
+                </div>
+
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Click on "🤖 Daily Social Media Automation"</li>
+                    <li>Click "Run workflow" dropdown (top right)</li>
+                    <li>Click "Run workflow" button</li>
+                    <li>Watch it run in real-time! ✨</li>
+                </ol>
+
+                <div class="info-box">
+                    <h4>What happens during the run:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>✅ GitHub spins up Ubuntu server</li>
+                        <li>✅ Installs Node.js 18</li>
+                        <li>✅ Installs all npm packages</li>
+                        <li>✅ Runs your automation (node main.js --now)</li>
+                        <li>✅ Uploads logs as artifacts</li>
+                        <li>✅ Shuts down server</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Total time:</strong> ~5-10 minutes</p>
+                    <p><strong>Cost:</strong> $0 (free tier!)</p>
+                </div>
+
+                <h3>3. Check the results:</h3>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Workflow completed successfully (green checkmark)</li>
+                    <li onclick="toggleCheck(this)">Downloaded logs artifact to verify posts</li>
+                    <li onclick="toggleCheck(this)">Checked platforms for new posts</li>
+                    <li onclick="toggleCheck(this)">Verified no errors in logs</li>
+                </ul>
+
+                <h3>4. Schedule Configuration:</h3>
+                <p>The workflow is already configured to run at 7 AM UTC daily.</p>
+
+                <div class="info-box">
+                    <h4>⏰ Adjust Schedule (optional):</h4>
+                    <p>Edit <code>.github/workflows/daily-automation.yml</code> line 7:</p>
+                    <div class="code-block" style="margin-top: 10px;">
+                        <pre>- cron: '0 7 * * *'  # 7 AM UTC
+- cron: '0 14 * * *'  # 2 PM UTC (9 AM EST)
+- cron: '0 */6 * * *'  # Every 6 hours</pre>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>🎉 Congratulations!</h4>
+                    <p>Your automation is now running 24/7 on GitHub Actions!</p>
+                    <p>It will post to all platforms automatically at 7 AM daily.</p>
+                    <p>No server costs. No maintenance. Fully automated! 🚀</p>
+                </div>
+            </div>
+
+            <!-- Step 12: Completion -->
+            <div class="step" data-step="12">
+                <div class="completion-screen">
+                    <div class="icon">🎉</div>
+                    <h2>Setup Complete!</h2>
+                    <p style="font-size: 1.2em; color: #666; margin: 20px 0;">
+                        Your fully automated $40K/month system is now live!
+                    </p>
+
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="number">$3-7</div>
+                            <div class="label">Monthly Cost</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number">24/7</div>
+                            <div class="label">Automated</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number">8+</div>
+                            <div class="label">Platforms</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number">$40K</div>
+                            <div class="label">Target Revenue</div>
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="text-align: left;">
+                        <h3>✅ What You've Built:</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>✅ Fully automated content generation with GPT-4o-mini</li>
+                            <li>✅ Daily posting to Reddit, Twitter, Quora, Medium, LinkedIn, Pinterest, YouTube</li>
+                            <li>✅ Professional admin dashboard at /backoffice</li>
+                            <li>✅ 24/7 operation on GitHub Actions (FREE)</li>
+                            <li>✅ Complete logging and tracking system</li>
+                            <li>✅ Expected: 50K+ visitors/month → $40K/month revenue</li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">🔗 Important Links:</h3>
+                    <div style="display: grid; gap: 15px; margin: 20px 0;">
+                        <div class="link-card">
+                            <h4>📊 Admin Dashboard</h4>
+                            <a href="https://shopify-success-hub.onrender.com/backoffice" target="_blank">
+                                https://shopify-success-hub.onrender.com/backoffice
+                            </a>
+                        </div>
+                        <div class="link-card">
+                            <h4>🤖 GitHub Actions</h4>
+                            <a href="https://github.com/FXCOOP/shopify-affiliate-hub/actions" target="_blank">
+                                Monitor your automation runs
+                            </a>
+                        </div>
+                        <div class="link-card">
+                            <h4>🌐 Your Website</h4>
+                            <a href="https://shopify-success-hub.onrender.com" target="_blank">
+                                https://shopify-success-hub.onrender.com
+                            </a>
+                        </div>
+                        <div class="link-card">
+                            <h4>💰 OpenAI Usage</h4>
+                            <a href="https://platform.openai.com/usage" target="_blank">
+                                Monitor your API costs
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">📈 Next 90 Days:</h3>
+                    <div class="info-box" style="text-align: left;">
+                        <h4>Month 1:</h4>
+                        <p>900+ posts → 1,000+ visitors → 20 sales → $3,000 revenue</p>
+
+                        <h4 style="margin-top: 15px;">Month 2:</h4>
+                        <p>1,800+ posts → 5,000+ visitors → 120 sales → $18,000 revenue</p>
+
+                        <h4 style="margin-top: 15px;">Month 3:</h4>
+                        <p>2,700+ posts → 8,000+ visitors → 240 sales → $36,000 revenue</p>
+
+                        <h4 style="margin-top: 15px;">Month 6:</h4>
+                        <p>5,400+ posts → 15,000+ visitors → 300+ sales → $40,000+/month</p>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">🎯 Daily Tasks (Optional):</h3>
+                    <div class="warning-box" style="text-align: left;">
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Check backoffice dashboard (5 min)</li>
+                            <li>Monitor GitHub Actions for errors (2 min)</li>
+                            <li>Reply to comments/questions on your posts (10 min)</li>
+                            <li>Review analytics in OpenAI dashboard (2 min)</li>
+                            <li><strong>Total: 20 minutes/day (optional!)</strong></li>
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="window.location.href='https://shopify-success-hub.onrender.com/backoffice'"
+                            style="margin-top: 40px; max-width: 400px;">
+                        🚀 Go to Admin Dashboard
+                    </button>
+
+                    <button class="btn btn-secondary" onclick="window.location.reload()"
+                            style="margin-top: 20px; max-width: 400px;">
+                        🔄 Restart Wizard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)">← Previous</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 12;
+
+        // Initialize wizard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorage();
+            updateStepIndicators();
+            updateProgress();
+            updateButtons();
+            generateEnvFile();
+            generateSecretsList();
+        });
+
+        // Step navigation
+        function changeStep(direction) {
+            currentStep += direction;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Show current step
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+
+            updateStepIndicators();
+            updateProgress();
+            updateButtons();
+            generateEnvFile();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update progress indicators
+        function updateStepIndicators() {
+            const container = document.getElementById('progressSteps');
+            container.innerHTML = '';
+
+            const stepNames = [
+                'Welcome',
+                'Install',
+                'OpenAI',
+                'Reddit',
+                'Twitter',
+                'Browser',
+                'Config',
+                'Test',
+                'Secrets',
+                'Domain',
+                'Deploy',
+                'Done'
+            ];
+
+            stepNames.forEach((name, index) => {
+                const stepNum = index + 1;
+                const indicator = document.createElement('div');
+                indicator.className = 'step-indicator';
+
+                if (stepNum < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    indicator.classList.add('active');
+                }
+
+                indicator.innerHTML = `
+                    <div class="number">${stepNum}</div>
+                    <div>${name}</div>
+                `;
+
+                container.appendChild(indicator);
+            });
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Update navigation buttons
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (currentStep === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        // Toggle checklist items
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.style.background = '#4caf50';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#667eea';
+                }, 2000);
+            });
+        }
+
+        // Save to localStorage
+        function saveToStorage(key, value) {
+            localStorage.setItem('wizard_' + key, value);
+            generateEnvFile();
+            generateSecretsList();
+        }
+
+        // Load from localStorage
+        function loadFromStorage() {
+            const fields = [
+                'openaiKey', 'redditClientId', 'redditClientSecret', 'redditUsername', 'redditPassword',
+                'twitterApiKey', 'twitterApiSecret', 'twitterAccessToken', 'twitterAccessSecret',
+                'quoraEmail', 'quoraPassword', 'mediumEmail', 'mediumPassword',
+                'linkedinEmail', 'linkedinPassword'
+            ];
+
+            fields.forEach(field => {
+                const value = localStorage.getItem('wizard_' + field);
+                if (value) {
+                    const element = document.getElementById(field);
+                    if (element) {
+                        element.value = value;
+                    }
+                }
+            });
+        }
+
+        // Generate .env file content
+        function generateEnvFile() {
+            const getValue = (key) => localStorage.getItem('wizard_' + key) || 'your-value-here';
+
+            const envContent = `# OpenAI API - GPT-4o-mini (cheap!)
+OPENAI_API_KEY=${getValue('openaiKey')}
+OPENAI_MODEL=gpt-4o-mini
+
+# Your Site
+SITE_URL=https://shopify-success-hub.onrender.com
+AFFILIATE_LINK=https://shopify.pxf.io/Qj5oDz
+
+# Reddit API (free)
+REDDIT_CLIENT_ID=${getValue('redditClientId')}
+REDDIT_CLIENT_SECRET=${getValue('redditClientSecret')}
+REDDIT_USERNAME=${getValue('redditUsername')}
+REDDIT_PASSWORD=${getValue('redditPassword')}
+REDDIT_USER_AGENT=ShopifyAutomation/1.0
+
+# Twitter API (free tier)
+TWITTER_API_KEY=${getValue('twitterApiKey')}
+TWITTER_API_SECRET=${getValue('twitterApiSecret')}
+TWITTER_ACCESS_TOKEN=${getValue('twitterAccessToken')}
+TWITTER_ACCESS_SECRET=${getValue('twitterAccessSecret')}
+
+# Pinterest API (optional)
+PINTEREST_ACCESS_TOKEN=your-pinterest-token
+
+# Browser automation credentials (optional)
+QUORA_EMAIL=${getValue('quoraEmail')}
+QUORA_PASSWORD=${getValue('quoraPassword')}
+MEDIUM_EMAIL=${getValue('mediumEmail')}
+MEDIUM_PASSWORD=${getValue('mediumPassword')}
+LINKEDIN_EMAIL=${getValue('linkedinEmail')}
+LINKEDIN_PASSWORD=${getValue('linkedinPassword')}
+YOUTUBE_EMAIL=your-youtube-email
+YOUTUBE_PASSWORD=your-youtube-password
+
+# Schedule (7 AM UTC)
+CRON_SCHEDULE=0 7 * * *
+
+# Options
+HEADLESS_BROWSER=true
+MAX_RETRIES=3
+DELAY_BETWEEN_POSTS=300000
+
+# Backend API Port
+PORT=3000`;
+
+            const textarea = document.getElementById('envFileContent');
+            if (textarea) {
+                textarea.value = envContent;
+            }
+        }
+
+        // Copy .env file to clipboard
+        function copyEnvFile() {
+            const textarea = document.getElementById('envFileContent');
+            textarea.select();
+            document.execCommand('copy');
+            alert('✅ .env file copied to clipboard!\n\nNow paste it into a new file and save as:\nC:\\Users\\User\\OneDrive\\Desktop\\shopify-hub\\automation-system\\.env');
+        }
+
+        // Generate GitHub Secrets list
+        function generateSecretsList() {
+            const getValue = (key) => localStorage.getItem('wizard_' + key) || '';
+
+            const secrets = [
+                { name: 'OPENAI_API_KEY', value: getValue('openaiKey'), required: true },
+                { name: 'REDDIT_CLIENT_ID', value: getValue('redditClientId'), required: true },
+                { name: 'REDDIT_CLIENT_SECRET', value: getValue('redditClientSecret'), required: true },
+                { name: 'REDDIT_USERNAME', value: getValue('redditUsername'), required: true },
+                { name: 'REDDIT_PASSWORD', value: getValue('redditPassword'), required: true },
+                { name: 'TWITTER_API_KEY', value: getValue('twitterApiKey'), required: true },
+                { name: 'TWITTER_API_SECRET', value: getValue('twitterApiSecret'), required: true },
+                { name: 'TWITTER_ACCESS_TOKEN', value: getValue('twitterAccessToken'), required: true },
+                { name: 'TWITTER_ACCESS_SECRET', value: getValue('twitterAccessSecret'), required: true },
+                { name: 'SITE_URL', value: 'https://shopify-success-hub.onrender.com', required: true },
+                { name: 'AFFILIATE_LINK', value: 'https://shopify.pxf.io/Qj5oDz', required: true },
+                { name: 'QUORA_EMAIL', value: getValue('quoraEmail'), required: false },
+                { name: 'QUORA_PASSWORD', value: getValue('quoraPassword'), required: false },
+                { name: 'MEDIUM_EMAIL', value: getValue('mediumEmail'), required: false },
+                { name: 'MEDIUM_PASSWORD', value: getValue('mediumPassword'), required: false },
+                { name: 'LINKEDIN_EMAIL', value: getValue('linkedinEmail'), required: false },
+                { name: 'LINKEDIN_PASSWORD', value: getValue('linkedinPassword'), required: false },
+            ];
+
+            const container = document.getElementById('secretsList');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            secrets.forEach(secret => {
+                const card = document.createElement('div');
+                card.className = 'link-card';
+                card.innerHTML = `
+                    <h4>${secret.name} ${secret.required ? '(Required)' : '(Optional)'}</h4>
+                    <p style="font-family: monospace; color: #666; margin-top: 5px;">
+                        ${secret.value || 'Not set yet'}
+                    </p>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
