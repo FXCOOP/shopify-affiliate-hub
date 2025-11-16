@@ -59,7 +59,9 @@ jobs:
           # Pinterest API
           PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
 
-          # Browser automation credentials
+          # Browser automation credentials (email/password)
+          REDDIT_EMAIL: ${{ secrets.REDDIT_EMAIL }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
           QUORA_EMAIL: ${{ secrets.QUORA_EMAIL }}
           QUORA_PASSWORD: ${{ secrets.QUORA_PASSWORD }}
           MEDIUM_EMAIL: ${{ secrets.MEDIUM_EMAIL }}
