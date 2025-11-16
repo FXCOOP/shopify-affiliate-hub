@@ -1,0 +1,54 @@
+services:
+  # API Server & Dashboard
+  - type: web
+    name: shopify-automation-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: node api-server.js
+    healthCheckPath: /api/stats
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: SITE_URL
+        value: https://shopify-success-hub.onrender.com
+      - key: AFFILIATE_LINK
+        value: https://shopify.pxf.io/Qj5oDz
+      - key: PORT
+        value: 3000
+      - key: LOG_LEVEL
+        value: info
+
+  # Daily Automation Cron Job
+  - type: cron
+    name: shopify-automation-daily
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    schedule: "0 7 * * *"
+    startCommand: node main.js --now
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: SITE_URL
+        value: https://shopify-success-hub.onrender.com
+      - key: AFFILIATE_LINK
+        value: https://shopify.pxf.io/Qj5oDz
+      - key: HEADLESS_BROWSER
+        value: true
+      - key: MAX_RETRIES
+        value: 3
+      - key: DELAY_BETWEEN_POSTS
+        value: 300000
+      - key: LOG_LEVEL
+        value: info
