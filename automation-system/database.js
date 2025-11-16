@@ -1,5 +1,5 @@
-const { Low } = require('lowdb');
-const { JSONFile } = require('lowdb/node');
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
 const path = require('path');
 const fs = require('fs');
 const logger = require('./logger');
@@ -12,32 +12,21 @@ if (!fs.existsSync(dbDir)) {
 
 const dbPath = path.join(dbDir, 'posts.json');
 
-// Default database structure
-const defaultData = {
+// Initialize database with FileSync adapter
+const adapter = new FileSync(dbPath);
+const db = low(adapter);
+
+// Set defaults
+db.defaults({
     automation_runs: [],
     posts: [],
     analytics: []
-};
+}).write();
 
-// Initialize database
-const adapter = new JSONFile(dbPath);
-const db = new Low(adapter, defaultData);
-
-// Initialize database schema
-async function initDatabase() {
-    logger.info('Initializing database...');
-
-    await db.read();
-    db.data ||= defaultData;
-    await db.write();
-
-    logger.success('Database initialized');
-}
+logger.info('✅ Database initialized');
 
 // Start new automation run
-async function startAutomationRun() {
-    await db.read();
-
+function startAutomationRun() {
     const run = {
         id: Date.now(),
         started_at: new Date().toISOString(),
@@ -51,36 +40,40 @@ async function startAutomationRun() {
         created_at: new Date().toISOString()
     };
 
-    db.data.automation_runs.push(run);
-    await db.write();
+    db.get('automation_runs')
+        .push(run)
+        .write();
 
     logger.info(`Started automation run #${run.id}`);
     return run.id;
 }
 
 // Complete automation run
-async function completeAutomationRun(runId, stats) {
-    await db.read();
+function completeAutomationRun(runId, stats) {
+    const run = db.get('automation_runs')
+        .find({ id: runId })
+        .value();
 
-    const run = db.data.automation_runs.find(r => r.id === runId);
     if (run) {
-        run.completed_at = new Date().toISOString();
-        run.status = stats.status || 'completed';
-        run.platforms_attempted = stats.attempted || 0;
-        run.platforms_succeeded = stats.succeeded || 0;
-        run.platforms_failed = stats.failed || 0;
-        run.total_posts = stats.totalPosts || 0;
-        run.errors = stats.errors ? JSON.stringify(stats.errors) : null;
+        db.get('automation_runs')
+            .find({ id: runId })
+            .assign({
+                completed_at: new Date().toISOString(),
+                status: stats.status || 'completed',
+                platforms_attempted: stats.attempted || 0,
+                platforms_succeeded: stats.succeeded || 0,
+                platforms_failed: stats.failed || 0,
+                total_posts: stats.totalPosts || 0,
+                errors: stats.errors ? JSON.stringify(stats.errors) : null
+            })
+            .write();
 
-        await db.write();
         logger.success(`Completed automation run #${runId}`);
     }
 }
 
 // Save post record
-async function savePost(runId, platform, postType, content, result) {
-    await db.read();
-
+function savePost(runId, platform, postType, content, result) {
     const post = {
         id: Date.now() + Math.random(), // Unique ID
         run_id: runId,
@@ -94,8 +87,9 @@ async function savePost(runId, platform, postType, content, result) {
         created_at: new Date().toISOString()
     };
 
-    db.data.posts.push(post);
-    await db.write();
+    db.get('posts')
+        .push(post)
+        .write();
 
     if (result.success) {
         logger.success(`Saved ${platform} ${postType} to database`);
@@ -105,59 +99,55 @@ async function savePost(runId, platform, postType, content, result) {
 }
 
 // Get recent automation runs
-async function getRecentRuns(limit = 10) {
-    await db.read();
-
-    return db.data.automation_runs
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(0, limit);
+function getRecentRuns(limit = 10) {
+    return db.get('automation_runs')
+        .orderBy(['created_at'], ['desc'])
+        .take(limit)
+        .value();
 }
 
 // Get posts for a run
-async function getPostsForRun(runId) {
-    await db.read();
-
-    return db.data.posts
-        .filter(p => p.run_id === runId)
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+function getPostsForRun(runId) {
+    return db.get('posts')
+        .filter({ run_id: runId })
+        .orderBy(['created_at'], ['desc'])
+        .value();
 }
 
 // Get all posts (paginated)
-async function getAllPosts(limit = 50, offset = 0) {
-    await db.read();
-
-    return db.data.posts
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(offset, offset + limit);
+function getAllPosts(limit = 50, offset = 0) {
+    return db.get('posts')
+        .orderBy(['created_at'], ['desc'])
+        .slice(offset, offset + limit)
+        .value();
 }
 
 // Get statistics
-async function getStats() {
-    await db.read();
-
-    const totalPosts = db.data.posts.length;
-    const successfulPosts = db.data.posts.filter(p => p.status === 'success').length;
-    const totalRuns = db.data.automation_runs.length;
-    const recentRuns = db.data.automation_runs.sort((a, b) =>
-        new Date(b.created_at) - new Date(a.created_at)
-    )[0];
+function getStats() {
+    const posts = db.get('posts').value();
+    const totalPosts = posts.length;
+    const successfulPosts = posts.filter(p => p.status === 'success').length;
+    const runs = db.get('automation_runs').value();
+    const totalRuns = runs.length;
+    const lastRun = runs.length > 0
+        ? runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
+        : null;
 
     return {
         totalPosts: totalPosts,
         successfulPosts: successfulPosts,
         totalRuns: totalRuns,
         successRate: totalPosts > 0 ? ((successfulPosts / totalPosts) * 100).toFixed(1) : 0,
-        lastRun: recentRuns
+        lastRun: lastRun
     };
 }
 
 // Get platform statistics
-async function getPlatformStats() {
-    await db.read();
-
+function getPlatformStats() {
+    const posts = db.get('posts').value();
     const platforms = {};
 
-    db.data.posts.forEach(post => {
+    posts.forEach(post => {
         if (!platforms[post.platform]) {
             platforms[post.platform] = {
                 platform: post.platform,
@@ -184,21 +174,20 @@ async function getPlatformStats() {
 }
 
 // Delete old posts (older than 90 days)
-async function cleanupOldPosts() {
-    await db.read();
-
+function cleanupOldPosts() {
     const ninetyDaysAgo = new Date();
     ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
-    const initialCount = db.data.posts.length;
-    db.data.posts = db.data.posts.filter(post =>
-        new Date(post.created_at) >= ninetyDaysAgo
-    );
+    const posts = db.get('posts').value();
+    const initialCount = posts.length;
 
-    const deletedCount = initialCount - db.data.posts.length;
+    db.set('posts', posts.filter(post =>
+        new Date(post.created_at) >= ninetyDaysAgo
+    )).write();
+
+    const deletedCount = initialCount - db.get('posts').value().length;
 
     if (deletedCount > 0) {
-        await db.write();
         logger.info(`Cleaned up ${deletedCount} old posts`);
     }
 
@@ -206,24 +195,17 @@ async function cleanupOldPosts() {
 }
 
 // Delete post by ID
-async function deletePost(postId) {
-    await db.read();
+function deletePost(postId) {
+    const initialLength = db.get('posts').value().length;
 
-    const initialLength = db.data.posts.length;
-    db.data.posts = db.data.posts.filter(p => p.id != postId);
+    db.get('posts')
+        .remove(p => p.id == postId)
+        .write();
 
-    if (db.data.posts.length < initialLength) {
-        await db.write();
-        return true;
-    }
+    const newLength = db.get('posts').value().length;
 
-    return false;
+    return newLength < initialLength;
 }
-
-// Initialize database on load
-initDatabase().catch(err => {
-    logger.error(`Failed to initialize database: ${err.message}`);
-});
 
 module.exports = {
     db,
