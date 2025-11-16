@@ -7,9 +7,11 @@ const database = require('./database');
 const contentGenerator = require('./content-generator');
 
 // Platform modules
-const reddit = require('./platforms/reddit');
+const reddit = require('./platforms/reddit-browser');
 const twitter = require('./platforms/twitter');
 const quora = require('./platforms/quora');
+const medium = require('./platforms/medium-browser');
+const linkedin = require('./platforms/linkedin-browser');
 
 // Configuration
 const CRON_SCHEDULE = process.env.CRON_SCHEDULE || '0 7 * * *'; // 7 AM daily
@@ -141,6 +143,60 @@ async function runAutomation() {
             logger.error(`Quora error: ${error.message}`);
             stats.failed++;
             stats.errors.push(`Quora: ${error.message}`);
+        }
+
+        // === MEDIUM ===
+        try {
+            stats.attempted++;
+            logger.info('');
+            logger.info('4️⃣  Medium');
+            logger.info('─────────────────────────────────');
+
+            const mediumResult = await medium.post(content.medium);
+
+            if (mediumResult.success) {
+                stats.succeeded++;
+                stats.totalPosts += 1;
+
+                database.savePost(runId, 'medium', 'article', content.medium, mediumResult);
+            } else {
+                stats.failed++;
+                stats.errors.push(`Medium: ${mediumResult.error}`);
+            }
+
+            await delay(parseFloat(process.env.DELAY_BETWEEN_POSTS) / 60000 || 5);
+
+        } catch (error) {
+            logger.error(`Medium error: ${error.message}`);
+            stats.failed++;
+            stats.errors.push(`Medium: ${error.message}`);
+        }
+
+        // === LINKEDIN ===
+        try {
+            stats.attempted++;
+            logger.info('');
+            logger.info('5️⃣  LinkedIn');
+            logger.info('─────────────────────────────────');
+
+            const linkedinResult = await linkedin.post(content.linkedin);
+
+            if (linkedinResult.success) {
+                stats.succeeded++;
+                stats.totalPosts += 1;
+
+                database.savePost(runId, 'linkedin', 'post', content.linkedin, linkedinResult);
+            } else {
+                stats.failed++;
+                stats.errors.push(`LinkedIn: ${linkedinResult.error}`);
+            }
+
+            await delay(parseFloat(process.env.DELAY_BETWEEN_POSTS) / 60000 || 5);
+
+        } catch (error) {
+            logger.error(`LinkedIn error: ${error.message}`);
+            stats.failed++;
+            stats.errors.push(`LinkedIn: ${error.message}`);
         }
 
         // Step 3: Summary
